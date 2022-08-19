@@ -110,7 +110,7 @@ class GPT(nn.Module):
         super().__init__()
         # input embedding stem
         self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd)
-        self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
+        self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd)) # [1, 288, 768]
         self.drop = nn.Dropout(config.embd_pdrop)
         # transformer
         self.blocks = nn.Sequential(*[Block(config) for _ in range(config.n_layer)])
@@ -136,7 +136,7 @@ class GPT(nn.Module):
 
     def forward(self, idx, embeddings=None, targets=None):
         # forward the GPT model
-        token_embeddings = self.tok_emb(idx) # each index maps to a (learnable) vector
+        token_embeddings = self.tok_emb(idx) # each index maps to a (learnable) vector [1, 32, 768]
 
         if embeddings is not None: # prepend explicit embeddings
             token_embeddings = torch.cat((embeddings, token_embeddings), dim=1)
@@ -144,10 +144,10 @@ class GPT(nn.Module):
         t = token_embeddings.shape[1]
         assert t <= self.block_size, "Cannot forward, model block size is exhausted."
         position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
-        x = self.drop(token_embeddings + position_embeddings)
-        x = self.blocks(x)
-        x = self.ln_f(x)
-        logits = self.head(x)
+        x = self.drop(token_embeddings + position_embeddings) # [1, 32, 768]
+        x = self.blocks(x) # [1, 32, 768]
+        x = self.ln_f(x) # [1, 32, 768]
+        logits = self.head(x) # [1, 32, 16384]
 
         # if we are given some desired targets also calculate the loss
         loss = None

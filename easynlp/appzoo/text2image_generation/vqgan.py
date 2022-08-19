@@ -334,7 +334,7 @@ class VQDecoder(nn.Module):
 
     def forward(self, z):
         #assert z.shape[1:] == self.z_shape[1:]
-        self.last_z_shape = z.shape
+        self.last_z_shape = z.shape # torch.Size([1, 256, 16, 16])
 
         # timestep embedding
         temb = None

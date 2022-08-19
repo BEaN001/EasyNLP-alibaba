@@ -86,6 +86,11 @@ class Trainer(object):
         return self._optimizer.get_current_lr(self._lr_scheduler) if self._lr_scheduler else self._optimizer.get_current_lr()
 
     def set_model_and_optimizer(self, model, args):
+        # print(f'self.args.n_gpu: {self.args.n_gpu}')
+        # self.args.n_gpu = 2
+        # print(f'self.args.use_torchacc: {self.args.use_torchacc}')
+        # print(f'self.args.n_gpu: {self.args.n_gpu}')
+        # print(f'self.args.local_rank: {self.args.local_rank}')
         if self.args.use_torchacc:
             self._model = model.to(self._device)
         elif self.args.n_gpu == 1:

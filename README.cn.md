@@ -243,6 +243,10 @@ This project is licensed under the [Apache License (Version 2.0)](https://github
 
 更加详细的解读可以参考我们的 [arxiv 文章](https://paperswithcode.com/paper/easynlp-a-comprehensive-and-easy-to-use)。
 
+# tfserver
+
+
+
 ```
 @article{easynlp,
   doi = {10.48550/ARXIV.2205.00258},  

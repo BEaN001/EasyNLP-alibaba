@@ -1,0 +1,1651 @@
+/home/yubin/miniconda3/envs/torch/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torch.distributed.run.
+Note that --use_env is set by default in torch.distributed.run.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+WARNING:torch.distributed.run:*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+examples/text2image_generation/main.py:1: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+**************************************************
+running local main...
+
+examples/text2image_generation/main.py:1: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+**************************************************
+running local main...
+
+No module named 'easy_predict'
+No module named 'easy_predict'
+log: starts to init...
+
+log: starts to init...
+
+------------------------ arguments ------------------------
+  app_name ........................................ text2image_generation
+  append_cols ..................................... None
+  buckets ......................................... None
+  checkpoint_dir .................................. ./tmp/finetune_model
+  chief_hosts ..................................... 
+  data_threads .................................... 10
+  distributed_backend ............................. nccl
+  do_lower_case ................................... False
+  epoch_num ....................................... 40.0
+  export_tf_checkpoint_type ....................... easytransfer
+  first_sequence .................................. text
+  gradient_accumulation_steps ..................... 1
+  input_schema .................................... idx:str:1,text:str:1,imgbase64:str:1
+  is_chief ........................................ 
+  is_master_node .................................. True
+  job_name ........................................ None
+  label_enumerate_values .......................... None
+  label_name ...................................... None
+  learning_rate ................................... 4e-05
+  local_rank ...................................... 0
+  logging_steps ................................... 100
+  master_port ..................................... 23456
+  max_grad_norm ................................... 1.0
+  micro_batch_size ................................ 32
+  mode ............................................ train
+  modelzoo_base_dir ............................... 
+  n_cpu ........................................... 1
+  n_gpu ........................................... 2
+  odps_config ..................................... None
+  optimizer_type .................................. AdamW
+  output_schema ................................... 
+  outputs ......................................... None
+  predict_queue_size .............................. 1024
+  predict_slice_size .............................. 4096
+  predict_table_read_thread_num ................... 16
+  predict_thread_num .............................. 2
+  ps_hosts ........................................ 
+  random_seed ..................................... 42
+  rank ............................................ 0
+  read_odps ....................................... False
+  restore_works_dir ............................... ./.easynlp_predict_restore_works_dir
+  resume_from_checkpoint .......................... None
+  save_all_checkpoints ............................ False
+  save_checkpoint_steps ........................... 1000
+  second_sequence ................................. imgbase64
+  sequence_length ................................. 288
+  skip_first_line ................................. False
+  tables .......................................... /data/yubindata/MUGE/MUGE_train_text_imgbase64.tsv,/data/yubindata/MUGE/MUGE_val_text_imgbase64.tsv
+  task_count ...................................... 1
+  task_index ...................................... 0
+  use_amp ......................................... False
+  use_torchacc .................................... False
+  user_defined_parameters ......................... 
+        pretrain_model_name_or_path=./pai-painter-base-zh
+        size=256
+        text_len=32
+        img_len=256
+        img_vocab_size=16384
+      
+  user_entry_file ................................. None
+  user_script ..................................... None
+  warmup_proportion ............................... 0.1
+  weight_decay .................................... 0.0001
+  worker_count .................................... 1
+  worker_cpu ...................................... -1
+  worker_gpu ...................................... 1
+  worker_hosts .................................... None
+  world_size ...................................... 2
+-------------------- end of arguments ---------------------
+> initializing torch distributed ...
+[W ProcessGroupNCCL.cpp:1569] Rank 0 using best-guess GPU 0 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect.Specify device_ids in barrier() to force use of a particular device.
+[W ProcessGroupNCCL.cpp:1569] Rank 1 using best-guess GPU 1 to perform barrier as devices used by this process are currently unknown. This can potentially cause a hang if this rank to GPU mapping is incorrect.Specify device_ids in barrier() to force use of a particular device.
+Init dist done. World size: 2, rank 1, l_rank 1Init dist done. World size: 2, rank 0, l_rank 0
+
+> setting random seeds to 42 ...
+log: starts to process user params...
+
+log: starts to process dataset...
+
+log: starts to process user params...
+
+log: starts to process dataset...
+
+Working with z of shape (1, 256, 16, 16) = 65536 dimensions.
+Working with z of shape (1, 256, 16, 16) = 65536 dimensions.
+Restored from ./pai-painter-base-zh
+Restored from ./pai-painter-base-zh
+optimizer type: AdamW
+[2022-08-12 11:56:39,468 INFO] ========== Initializing Tensorboard ==========
+[2022-08-12 11:56:39,470 INFO] ========== Training Start ==========
+
+[2022-08-12 11:56:39,470 INFO]   Num of GPUs (all)       = 2
+[2022-08-12 11:56:39,470 INFO]   Num of CPUs per worker  = 1
+[2022-08-12 11:56:39,470 INFO]   Num dataset examples    = 89970
+[2022-08-12 11:56:39,470 INFO]   Num training examples   = 89970
+[2022-08-12 11:56:39,470 INFO]   Num validation examples = 4997
+[2022-08-12 11:56:39,470 INFO]   Train. batch size       = 64
+[2022-08-12 11:56:39,471 INFO]   Train. micro batch size = 32
+[2022-08-12 11:56:39,471 INFO]   Train. batch no.        = 112462
+[2022-08-12 11:56:39,471 INFO]   Evaluation batch size   = 32
+[2022-08-12 11:56:39,471 INFO]   Total training steps    = 56240
+[2022-08-12 11:56:39,471 INFO]   Sequence length         = 288
+[2022-08-12 11:56:39,471 INFO]   Saving steps            = 1000
+[2022-08-12 11:56:39,471 INFO]   Distributed_backend     = nccl
+[2022-08-12 11:56:39,471 INFO]   Worker Count            = 1
+[2022-08-12 11:56:39,471 INFO]   Worker CPU              = -1
+[2022-08-12 11:56:39,471 INFO]   Worker data threads     = 10
+[2022-08-12 11:56:39,473 INFO]   num model params        = 202,743,171
+[2022-08-12 11:56:39,473 INFO]   num trainable params    = 202,743,171
+[2022-08-12 11:56:39,473 INFO] 
+
+[2022-08-12 11:56:39,473 INFO] ========== Model Config ==========
+[2022-08-12 11:56:39,473 INFO] {
+  "attn_pdrop": 0.0,
+  "block_size": 288,
+  "easynlp_version": "0.0.3",
+  "embd_pdrop": 0.0,
+  "img_vocab_size": 16384,
+  "model_type": "artist",
+  "n_embd": 768,
+  "n_head": 12,
+  "n_layer": 12,
+  "n_unmasked": 0,
+  "resid_pdrop": 0.0,
+  "text_vocab_size": 21128,
+  "vocab_size": 37512
+}
+
+optimizer type: AdamW
+./easynlp/core/optimizers.py:441: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /tmp/pip-req-build-ex__3qls/torch/csrc/utils/python_arg_parser.cpp:1025.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+./easynlp/core/optimizers.py:441: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /tmp/pip-req-build-ex__3qls/torch/csrc/utils/python_arg_parser.cpp:1025.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+/home/yubin/miniconda3/envs/torch/lib/python3.8/site-packages/torch/optim/lr_scheduler.py:247: UserWarning: To get the last learning rate computed by the scheduler, please use `get_last_lr()`.
+  warnings.warn("To get the last learning rate computed by the scheduler, "
+[2022-08-12 11:57:55,550 INFO] Epoch [ 0/40], step [100/56240], lr 0.000001, 75.91 s
+[2022-08-12 11:57:55,553 INFO]   loss      : 3.0003 
+[2022-08-12 11:59:10,311 INFO] Epoch [ 0/40], step [200/56240], lr 0.000001, 74.76 s
+[2022-08-12 11:59:10,313 INFO]   loss      : 2.9792 
+[2022-08-12 12:00:23,261 INFO] Epoch [ 0/40], step [300/56240], lr 0.000002, 72.95 s
+[2022-08-12 12:00:23,262 INFO]   loss      : 2.9762 
+[2022-08-12 12:01:36,042 INFO] Epoch [ 0/40], step [400/56240], lr 0.000003, 72.78 s
+[2022-08-12 12:01:36,043 INFO]   loss      : 2.9813 
+[2022-08-12 12:02:49,031 INFO] Epoch [ 0/40], step [500/56240], lr 0.000004, 72.99 s
+[2022-08-12 12:02:49,032 INFO]   loss      : 2.9780 
+[2022-08-12 12:04:01,967 INFO] Epoch [ 0/40], step [600/56240], lr 0.000004, 72.93 s
+[2022-08-12 12:04:01,968 INFO]   loss      : 2.9777 
+[2022-08-12 12:05:14,694 INFO] Epoch [ 0/40], step [700/56240], lr 0.000005, 72.73 s
+[2022-08-12 12:05:14,696 INFO]   loss      : 2.9737 
+[2022-08-12 12:06:27,892 INFO] Epoch [ 0/40], step [800/56240], lr 0.000006, 73.20 s
+[2022-08-12 12:06:27,894 INFO]   loss      : 2.9712 
+[2022-08-12 12:07:40,671 INFO] Epoch [ 0/40], step [900/56240], lr 0.000006, 72.78 s
+[2022-08-12 12:07:40,673 INFO]   loss      : 2.9705 
+[2022-08-12 12:08:53,995 INFO] Epoch [ 0/40], step [1000/56240], lr 0.000007, 73.32 s
+[2022-08-12 12:08:53,996 INFO]   loss      : 2.9695 
+[2022-08-12 12:08:53,996 INFO] ========== Evaluation at global step 1000 ==========
+[2022-08-12 12:12:19,647 INFO] Eval: 100/156 steps finished
+[2022-08-12 12:14:14,961 INFO] Inference time = 1.90s, [0.3788 ms / sample] 
+[2022-08-12 12:14:14,961 INFO] Eval loss: 2.935024641122028
+[2022-08-12 12:14:14,961 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 12:14:16,623 INFO] Best score: -2.935024641122028
+[2022-08-12 12:14:16,623 INFO] Learning rate: 0.00000711
+[2022-08-12 12:15:31,080 INFO] Epoch [ 0/40], step [1100/56240], lr 0.000008, 397.08 s
+[2022-08-12 12:15:31,080 INFO]   loss      : 2.9677 
+[2022-08-12 12:16:43,942 INFO] Epoch [ 0/40], step [1200/56240], lr 0.000009, 72.86 s
+[2022-08-12 12:16:43,944 INFO]   loss      : 2.9648 
+[2022-08-12 12:17:56,963 INFO] Epoch [ 0/40], step [1300/56240], lr 0.000009, 73.02 s
+[2022-08-12 12:17:56,964 INFO]   loss      : 2.9630 
+[2022-08-12 12:19:10,114 INFO] Epoch [ 0/40], step [1400/56240], lr 0.000010, 73.15 s
+[2022-08-12 12:19:10,117 INFO]   loss      : 2.9600 
+[2022-08-12 12:20:28,483 INFO] Epoch [ 1/40], step [1500/56240], lr 0.000011, 73.08 s
+[2022-08-12 12:20:28,485 INFO]   loss      : 2.9305 
+[2022-08-12 12:21:42,224 INFO] Epoch [ 1/40], step [1600/56240], lr 0.000011, 73.74 s
+[2022-08-12 12:21:42,227 INFO]   loss      : 2.9130 
+[2022-08-12 12:22:55,299 INFO] Epoch [ 1/40], step [1700/56240], lr 0.000012, 73.07 s
+[2022-08-12 12:22:55,301 INFO]   loss      : 2.9073 
+[2022-08-12 12:24:07,639 INFO] Epoch [ 1/40], step [1800/56240], lr 0.000013, 72.34 s
+[2022-08-12 12:24:07,640 INFO]   loss      : 2.9173 
+[2022-08-12 12:25:21,114 INFO] Epoch [ 1/40], step [1900/56240], lr 0.000014, 73.47 s
+[2022-08-12 12:25:21,115 INFO]   loss      : 2.9175 
+[2022-08-12 12:26:34,382 INFO] Epoch [ 1/40], step [2000/56240], lr 0.000014, 73.27 s
+[2022-08-12 12:26:34,383 INFO]   loss      : 2.9201 
+[2022-08-12 12:26:34,383 INFO] ========== Evaluation at global step 2000 ==========
+[2022-08-12 12:29:57,357 INFO] Eval: 100/156 steps finished
+[2022-08-12 12:31:51,898 INFO] Inference time = 1.93s, [0.3834 ms / sample] 
+[2022-08-12 12:31:51,898 INFO] Eval loss: 2.9091796054961576
+[2022-08-12 12:31:51,898 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 12:31:54,127 INFO] Best score: -2.9091796054961576
+[2022-08-12 12:31:54,128 INFO] Learning rate: 0.00001422
+[2022-08-12 12:33:08,751 INFO] Epoch [ 1/40], step [2100/56240], lr 0.000015, 394.37 s
+[2022-08-12 12:33:08,752 INFO]   loss      : 2.9169 
+[2022-08-12 12:34:21,767 INFO] Epoch [ 1/40], step [2200/56240], lr 0.000016, 73.01 s
+[2022-08-12 12:34:21,769 INFO]   loss      : 2.9179 
+[2022-08-12 12:35:34,550 INFO] Epoch [ 1/40], step [2300/56240], lr 0.000016, 72.78 s
+[2022-08-12 12:35:34,553 INFO]   loss      : 2.9183 
+[2022-08-12 12:36:47,332 INFO] Epoch [ 1/40], step [2400/56240], lr 0.000017, 72.78 s
+[2022-08-12 12:36:47,332 INFO]   loss      : 2.9191 
+[2022-08-12 12:38:00,457 INFO] Epoch [ 1/40], step [2500/56240], lr 0.000018, 73.12 s
+[2022-08-12 12:38:00,459 INFO]   loss      : 2.9188 
+[2022-08-12 12:39:13,180 INFO] Epoch [ 1/40], step [2600/56240], lr 0.000018, 72.72 s
+[2022-08-12 12:39:13,183 INFO]   loss      : 2.9168 
+[2022-08-12 12:40:26,079 INFO] Epoch [ 1/40], step [2700/56240], lr 0.000019, 72.90 s
+[2022-08-12 12:40:26,079 INFO]   loss      : 2.9158 
+[2022-08-12 12:41:38,968 INFO] Epoch [ 1/40], step [2800/56240], lr 0.000020, 72.89 s
+[2022-08-12 12:41:38,969 INFO]   loss      : 2.9139 
+[2022-08-12 12:42:56,420 INFO] Epoch [ 2/40], step [2900/56240], lr 0.000021, 67.87 s
+[2022-08-12 12:42:56,422 INFO]   loss      : 2.8929 
+[2022-08-12 12:44:10,252 INFO] Epoch [ 2/40], step [3000/56240], lr 0.000021, 73.83 s
+[2022-08-12 12:44:10,253 INFO]   loss      : 2.8800 
+[2022-08-12 12:44:10,254 INFO] ========== Evaluation at global step 3000 ==========
+[2022-08-12 12:47:33,873 INFO] Eval: 100/156 steps finished
+[2022-08-12 12:49:28,691 INFO] Inference time = 1.94s, [0.3852 ms / sample] 
+[2022-08-12 12:49:28,691 INFO] Eval loss: 2.8900776714276355
+[2022-08-12 12:49:28,691 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 12:49:31,012 INFO] Best score: -2.8900776714276355
+[2022-08-12 12:49:31,013 INFO] Learning rate: 0.00002133
+[2022-08-12 12:50:45,394 INFO] Epoch [ 2/40], step [3100/56240], lr 0.000022, 395.14 s
+[2022-08-12 12:50:45,395 INFO]   loss      : 2.8739 
+[2022-08-12 12:51:58,417 INFO] Epoch [ 2/40], step [3200/56240], lr 0.000023, 73.02 s
+[2022-08-12 12:51:58,420 INFO]   loss      : 2.8852 
+[2022-08-12 12:53:11,443 INFO] Epoch [ 2/40], step [3300/56240], lr 0.000023, 73.02 s
+[2022-08-12 12:53:11,445 INFO]   loss      : 2.8851 
+[2022-08-12 12:54:24,549 INFO] Epoch [ 2/40], step [3400/56240], lr 0.000024, 73.10 s
+[2022-08-12 12:54:24,551 INFO]   loss      : 2.8880 
+[2022-08-12 12:55:37,651 INFO] Epoch [ 2/40], step [3500/56240], lr 0.000025, 73.10 s
+[2022-08-12 12:55:37,653 INFO]   loss      : 2.8861 
+[2022-08-12 12:56:50,556 INFO] Epoch [ 2/40], step [3600/56240], lr 0.000026, 72.90 s
+[2022-08-12 12:56:50,559 INFO]   loss      : 2.8859 
+[2022-08-12 12:58:03,492 INFO] Epoch [ 2/40], step [3700/56240], lr 0.000026, 72.93 s
+[2022-08-12 12:58:03,492 INFO]   loss      : 2.8876 
+[2022-08-12 12:59:16,407 INFO] Epoch [ 2/40], step [3800/56240], lr 0.000027, 72.92 s
+[2022-08-12 12:59:16,409 INFO]   loss      : 2.8882 
+[2022-08-12 13:00:29,215 INFO] Epoch [ 2/40], step [3900/56240], lr 0.000028, 72.81 s
+[2022-08-12 13:00:29,217 INFO]   loss      : 2.8882 
+[2022-08-12 13:01:42,357 INFO] Epoch [ 2/40], step [4000/56240], lr 0.000028, 73.14 s
+[2022-08-12 13:01:42,357 INFO]   loss      : 2.8860 
+[2022-08-12 13:01:42,357 INFO] ========== Evaluation at global step 4000 ==========
+[2022-08-12 13:05:04,120 INFO] Eval: 100/156 steps finished
+[2022-08-12 13:06:57,631 INFO] Inference time = 1.94s, [0.3854 ms / sample] 
+[2022-08-12 13:06:57,631 INFO] Eval loss: 2.874860266970981
+[2022-08-12 13:06:57,631 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 13:06:59,877 INFO] Best score: -2.874860266970981
+[2022-08-12 13:06:59,877 INFO] Learning rate: 0.00002844
+[2022-08-12 13:08:14,494 INFO] Epoch [ 2/40], step [4100/56240], lr 0.000029, 392.14 s
+[2022-08-12 13:08:14,496 INFO]   loss      : 2.8853 
+[2022-08-12 13:09:27,559 INFO] Epoch [ 2/40], step [4200/56240], lr 0.000030, 73.06 s
+[2022-08-12 13:09:27,559 INFO]   loss      : 2.8842 
+[2022-08-12 13:10:44,980 INFO] Epoch [ 3/40], step [4300/56240], lr 0.000031, 63.37 s
+[2022-08-12 13:10:44,982 INFO]   loss      : 2.8766 
+[2022-08-12 13:11:58,811 INFO] Epoch [ 3/40], step [4400/56240], lr 0.000031, 73.83 s
+[2022-08-12 13:11:58,813 INFO]   loss      : 2.8560 
+[2022-08-12 13:13:11,783 INFO] Epoch [ 3/40], step [4500/56240], lr 0.000032, 72.97 s
+[2022-08-12 13:13:11,785 INFO]   loss      : 2.8469 
+[2022-08-12 13:14:24,800 INFO] Epoch [ 3/40], step [4600/56240], lr 0.000033, 73.01 s
+[2022-08-12 13:14:24,802 INFO]   loss      : 2.8574 
+[2022-08-12 13:15:37,587 INFO] Epoch [ 3/40], step [4700/56240], lr 0.000033, 72.79 s
+[2022-08-12 13:15:37,588 INFO]   loss      : 2.8587 
+[2022-08-12 13:16:50,123 INFO] Epoch [ 3/40], step [4800/56240], lr 0.000034, 72.53 s
+[2022-08-12 13:16:50,124 INFO]   loss      : 2.8601 
+[2022-08-12 13:18:03,475 INFO] Epoch [ 3/40], step [4900/56240], lr 0.000035, 73.35 s
+[2022-08-12 13:18:03,477 INFO]   loss      : 2.8594 
+[2022-08-12 13:19:16,367 INFO] Epoch [ 3/40], step [5000/56240], lr 0.000036, 72.89 s
+[2022-08-12 13:19:16,368 INFO]   loss      : 2.8601 
+[2022-08-12 13:19:16,368 INFO] ========== Evaluation at global step 5000 ==========
+[2022-08-12 13:22:41,345 INFO] Eval: 100/156 steps finished
+[2022-08-12 13:24:36,913 INFO] Inference time = 1.93s, [0.3833 ms / sample] 
+[2022-08-12 13:24:36,913 INFO] Eval loss: 2.862354334752271
+[2022-08-12 13:24:36,913 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 13:24:39,144 INFO] Best score: -2.862354334752271
+[2022-08-12 13:24:39,144 INFO] Learning rate: 0.00003555
+[2022-08-12 13:25:53,767 INFO] Epoch [ 3/40], step [5100/56240], lr 0.000036, 397.40 s
+[2022-08-12 13:25:53,768 INFO]   loss      : 2.8613 
+[2022-08-12 13:27:06,687 INFO] Epoch [ 3/40], step [5200/56240], lr 0.000037, 72.92 s
+[2022-08-12 13:27:06,690 INFO]   loss      : 2.8624 
+[2022-08-12 13:28:19,414 INFO] Epoch [ 3/40], step [5300/56240], lr 0.000038, 72.72 s
+[2022-08-12 13:28:19,415 INFO]   loss      : 2.8622 
+[2022-08-12 13:29:32,614 INFO] Epoch [ 3/40], step [5400/56240], lr 0.000038, 73.20 s
+[2022-08-12 13:29:32,616 INFO]   loss      : 2.8598 
+[2022-08-12 13:30:45,651 INFO] Epoch [ 3/40], step [5500/56240], lr 0.000039, 73.03 s
+[2022-08-12 13:30:45,653 INFO]   loss      : 2.8594 
+[2022-08-12 13:31:58,545 INFO] Epoch [ 3/40], step [5600/56240], lr 0.000040, 72.89 s
+[2022-08-12 13:31:58,546 INFO]   loss      : 2.8583 
+[2022-08-12 13:33:16,576 INFO] Epoch [ 4/40], step [5700/56240], lr 0.000040, 59.49 s
+[2022-08-12 13:33:16,578 INFO]   loss      : 2.8531 
+[2022-08-12 13:34:30,114 INFO] Epoch [ 4/40], step [5800/56240], lr 0.000040, 73.54 s
+[2022-08-12 13:34:30,116 INFO]   loss      : 2.8322 
+[2022-08-12 13:35:43,500 INFO] Epoch [ 4/40], step [5900/56240], lr 0.000040, 73.38 s
+[2022-08-12 13:35:43,502 INFO]   loss      : 2.8197 
+[2022-08-12 13:36:56,336 INFO] Epoch [ 4/40], step [6000/56240], lr 0.000040, 72.83 s
+[2022-08-12 13:36:56,338 INFO]   loss      : 2.8329 
+[2022-08-12 13:36:56,338 INFO] ========== Evaluation at global step 6000 ==========
+[2022-08-12 13:40:20,270 INFO] Eval: 100/156 steps finished
+[2022-08-12 13:42:14,855 INFO] Inference time = 1.92s, [0.3825 ms / sample] 
+[2022-08-12 13:42:14,855 INFO] Eval loss: 2.8520145279586693
+[2022-08-12 13:42:14,856 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 13:42:17,135 INFO] Best score: -2.8520145279586693
+[2022-08-12 13:42:17,135 INFO] Learning rate: 0.00003970
+[2022-08-12 13:43:31,867 INFO] Epoch [ 4/40], step [6100/56240], lr 0.000040, 395.53 s
+[2022-08-12 13:43:31,868 INFO]   loss      : 2.8339 
+[2022-08-12 13:44:45,007 INFO] Epoch [ 4/40], step [6200/56240], lr 0.000040, 73.14 s
+[2022-08-12 13:44:45,008 INFO]   loss      : 2.8353 
+[2022-08-12 13:45:57,870 INFO] Epoch [ 4/40], step [6300/56240], lr 0.000039, 72.86 s
+[2022-08-12 13:45:57,871 INFO]   loss      : 2.8353 
+[2022-08-12 13:47:11,055 INFO] Epoch [ 4/40], step [6400/56240], lr 0.000039, 73.18 s
+[2022-08-12 13:47:11,058 INFO]   loss      : 2.8357 
+[2022-08-12 13:48:24,182 INFO] Epoch [ 4/40], step [6500/56240], lr 0.000039, 73.12 s
+[2022-08-12 13:48:24,183 INFO]   loss      : 2.8370 
+[2022-08-12 13:49:37,128 INFO] Epoch [ 4/40], step [6600/56240], lr 0.000039, 72.94 s
+[2022-08-12 13:49:37,130 INFO]   loss      : 2.8378 
+[2022-08-12 13:50:50,224 INFO] Epoch [ 4/40], step [6700/56240], lr 0.000039, 73.09 s
+[2022-08-12 13:50:50,226 INFO]   loss      : 2.8377 
+[2022-08-12 13:52:03,061 INFO] Epoch [ 4/40], step [6800/56240], lr 0.000039, 72.83 s
+[2022-08-12 13:52:03,061 INFO]   loss      : 2.8357 
+[2022-08-12 13:53:16,216 INFO] Epoch [ 4/40], step [6900/56240], lr 0.000039, 73.15 s
+[2022-08-12 13:53:16,216 INFO]   loss      : 2.8353 
+[2022-08-12 13:54:29,238 INFO] Epoch [ 4/40], step [7000/56240], lr 0.000039, 73.02 s
+[2022-08-12 13:54:29,240 INFO]   loss      : 2.8344 
+[2022-08-12 13:54:29,240 INFO] ========== Evaluation at global step 7000 ==========
+[2022-08-12 13:57:50,374 INFO] Eval: 100/156 steps finished
+[2022-08-12 13:59:43,644 INFO] Inference time = 1.93s, [0.3835 ms / sample] 
+[2022-08-12 13:59:43,644 INFO] Eval loss: 2.8443869891440032
+[2022-08-12 13:59:43,644 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 13:59:45,932 INFO] Best score: -2.8443869891440032
+[2022-08-12 13:59:45,933 INFO] Learning rate: 0.00003891
+[2022-08-12 14:01:05,403 INFO] Epoch [ 5/40], step [7100/56240], lr 0.000039, 55.74 s
+[2022-08-12 14:01:05,406 INFO]   loss      : 2.8340 
+[2022-08-12 14:02:18,579 INFO] Epoch [ 5/40], step [7200/56240], lr 0.000039, 73.17 s
+[2022-08-12 14:02:18,581 INFO]   loss      : 2.8095 
+[2022-08-12 14:03:31,387 INFO] Epoch [ 5/40], step [7300/56240], lr 0.000039, 72.81 s
+[2022-08-12 14:03:31,388 INFO]   loss      : 2.7969 
+[2022-08-12 14:04:44,588 INFO] Epoch [ 5/40], step [7400/56240], lr 0.000039, 73.20 s
+[2022-08-12 14:04:44,589 INFO]   loss      : 2.8103 
+[2022-08-12 14:05:57,340 INFO] Epoch [ 5/40], step [7500/56240], lr 0.000039, 72.75 s
+[2022-08-12 14:05:57,341 INFO]   loss      : 2.8117 
+[2022-08-12 14:07:10,031 INFO] Epoch [ 5/40], step [7600/56240], lr 0.000038, 72.69 s
+[2022-08-12 14:07:10,032 INFO]   loss      : 2.8128 
+[2022-08-12 14:08:23,059 INFO] Epoch [ 5/40], step [7700/56240], lr 0.000038, 73.03 s
+[2022-08-12 14:08:23,059 INFO]   loss      : 2.8131 
+[2022-08-12 14:09:35,680 INFO] Epoch [ 5/40], step [7800/56240], lr 0.000038, 72.62 s
+[2022-08-12 14:09:35,681 INFO]   loss      : 2.8132 
+[2022-08-12 14:10:49,171 INFO] Epoch [ 5/40], step [7900/56240], lr 0.000038, 73.49 s
+[2022-08-12 14:10:49,172 INFO]   loss      : 2.8153 
+[2022-08-12 14:12:02,104 INFO] Epoch [ 5/40], step [8000/56240], lr 0.000038, 72.93 s
+[2022-08-12 14:12:02,104 INFO]   loss      : 2.8160 
+[2022-08-12 14:12:02,104 INFO] ========== Evaluation at global step 8000 ==========
+[2022-08-12 14:15:24,547 INFO] Eval: 100/156 steps finished
+[2022-08-12 14:17:18,654 INFO] Inference time = 1.92s, [0.3824 ms / sample] 
+[2022-08-12 14:17:18,655 INFO] Eval loss: 2.838733096031626
+[2022-08-12 14:17:18,655 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 14:17:20,913 INFO] Best score: -2.838733096031626
+[2022-08-12 14:17:20,913 INFO] Learning rate: 0.00003812
+[2022-08-12 14:18:35,448 INFO] Epoch [ 5/40], step [8100/56240], lr 0.000038, 393.34 s
+[2022-08-12 14:18:35,450 INFO]   loss      : 2.8161 
+[2022-08-12 14:19:48,447 INFO] Epoch [ 5/40], step [8200/56240], lr 0.000038, 73.00 s
+[2022-08-12 14:19:48,448 INFO]   loss      : 2.8140 
+[2022-08-12 14:21:01,293 INFO] Epoch [ 5/40], step [8300/56240], lr 0.000038, 72.84 s
+[2022-08-12 14:21:01,295 INFO]   loss      : 2.8137 
+[2022-08-12 14:22:14,400 INFO] Epoch [ 5/40], step [8400/56240], lr 0.000038, 73.11 s
+[2022-08-12 14:22:14,401 INFO]   loss      : 2.8128 
+[2022-08-12 14:23:32,555 INFO] Epoch [ 6/40], step [8500/56240], lr 0.000038, 51.04 s
+[2022-08-12 14:23:32,555 INFO]   loss      : 2.8171 
+[2022-08-12 14:24:46,171 INFO] Epoch [ 6/40], step [8600/56240], lr 0.000038, 73.62 s
+[2022-08-12 14:24:46,174 INFO]   loss      : 2.7923 
+[2022-08-12 14:25:59,219 INFO] Epoch [ 6/40], step [8700/56240], lr 0.000038, 73.05 s
+[2022-08-12 14:25:59,221 INFO]   loss      : 2.7780 
+[2022-08-12 14:27:11,861 INFO] Epoch [ 6/40], step [8800/56240], lr 0.000037, 72.64 s
+[2022-08-12 14:27:11,863 INFO]   loss      : 2.7905 
+[2022-08-12 14:28:25,262 INFO] Epoch [ 6/40], step [8900/56240], lr 0.000037, 73.40 s
+[2022-08-12 14:28:25,262 INFO]   loss      : 2.7930 
+[2022-08-12 14:29:38,142 INFO] Epoch [ 6/40], step [9000/56240], lr 0.000037, 72.88 s
+[2022-08-12 14:29:38,144 INFO]   loss      : 2.7938 
+[2022-08-12 14:29:38,144 INFO] ========== Evaluation at global step 9000 ==========
+[2022-08-12 14:33:01,968 INFO] Eval: 100/156 steps finished
+[2022-08-12 14:34:56,193 INFO] Inference time = 1.92s, [0.3817 ms / sample] 
+[2022-08-12 14:34:56,194 INFO] Eval loss: 2.8350371874062117
+[2022-08-12 14:34:56,194 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 14:34:58,518 INFO] Best score: -2.8350371874062117
+[2022-08-12 14:34:58,518 INFO] Learning rate: 0.00003733
+[2022-08-12 14:36:13,146 INFO] Epoch [ 6/40], step [9100/56240], lr 0.000037, 395.00 s
+[2022-08-12 14:36:13,146 INFO]   loss      : 2.7949 
+[2022-08-12 14:37:26,233 INFO] Epoch [ 6/40], step [9200/56240], lr 0.000037, 73.09 s
+[2022-08-12 14:37:26,233 INFO]   loss      : 2.7944 
+[2022-08-12 14:38:39,279 INFO] Epoch [ 6/40], step [9300/56240], lr 0.000037, 73.05 s
+[2022-08-12 14:38:39,279 INFO]   loss      : 2.7967 
+[2022-08-12 14:39:52,366 INFO] Epoch [ 6/40], step [9400/56240], lr 0.000037, 73.09 s
+[2022-08-12 14:39:52,367 INFO]   loss      : 2.7980 
+[2022-08-12 14:41:05,559 INFO] Epoch [ 6/40], step [9500/56240], lr 0.000037, 73.19 s
+[2022-08-12 14:41:05,562 INFO]   loss      : 2.7977 
+[2022-08-12 14:42:18,195 INFO] Epoch [ 6/40], step [9600/56240], lr 0.000037, 72.63 s
+[2022-08-12 14:42:18,198 INFO]   loss      : 2.7962 
+[2022-08-12 14:43:30,983 INFO] Epoch [ 6/40], step [9700/56240], lr 0.000037, 72.79 s
+[2022-08-12 14:43:30,984 INFO]   loss      : 2.7955 
+[2022-08-12 14:44:43,811 INFO] Epoch [ 6/40], step [9800/56240], lr 0.000037, 72.83 s
+[2022-08-12 14:44:43,812 INFO]   loss      : 2.7950 
+[2022-08-12 14:46:01,383 INFO] Epoch [ 7/40], step [9900/56240], lr 0.000037, 46.20 s
+[2022-08-12 14:46:01,385 INFO]   loss      : 2.8111 
+[2022-08-12 14:47:14,825 INFO] Epoch [ 7/40], step [10000/56240], lr 0.000037, 73.44 s
+[2022-08-12 14:47:14,825 INFO]   loss      : 2.7745 
+[2022-08-12 14:47:14,826 INFO] ========== Evaluation at global step 10000 ==========
+[2022-08-12 14:50:38,035 INFO] Eval: 100/156 steps finished
+[2022-08-12 14:52:32,066 INFO] Inference time = 1.92s, [0.3824 ms / sample] 
+[2022-08-12 14:52:32,067 INFO] Eval loss: 2.8317739690185353
+[2022-08-12 14:52:32,067 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 14:52:34,435 INFO] Best score: -2.8317739690185353
+[2022-08-12 14:52:34,436 INFO] Learning rate: 0.00003654
+[2022-08-12 14:53:49,132 INFO] Epoch [ 7/40], step [10100/56240], lr 0.000036, 394.31 s
+[2022-08-12 14:53:49,134 INFO]   loss      : 2.7602 
+[2022-08-12 14:55:02,039 INFO] Epoch [ 7/40], step [10200/56240], lr 0.000036, 72.90 s
+[2022-08-12 14:55:02,040 INFO]   loss      : 2.7729 
+[2022-08-12 14:56:14,858 INFO] Epoch [ 7/40], step [10300/56240], lr 0.000036, 72.82 s
+[2022-08-12 14:56:14,859 INFO]   loss      : 2.7761 
+[2022-08-12 14:57:28,266 INFO] Epoch [ 7/40], step [10400/56240], lr 0.000036, 73.41 s
+[2022-08-12 14:57:28,267 INFO]   loss      : 2.7776 
+[2022-08-12 14:58:41,168 INFO] Epoch [ 7/40], step [10500/56240], lr 0.000036, 72.90 s
+[2022-08-12 14:58:41,171 INFO]   loss      : 2.7781 
+[2022-08-12 14:59:54,493 INFO] Epoch [ 7/40], step [10600/56240], lr 0.000036, 73.32 s
+[2022-08-12 14:59:54,494 INFO]   loss      : 2.7778 
+[2022-08-12 15:01:07,523 INFO] Epoch [ 7/40], step [10700/56240], lr 0.000036, 73.03 s
+[2022-08-12 15:01:07,524 INFO]   loss      : 2.7798 
+[2022-08-12 15:02:20,104 INFO] Epoch [ 7/40], step [10800/56240], lr 0.000036, 72.58 s
+[2022-08-12 15:02:20,104 INFO]   loss      : 2.7814 
+[2022-08-12 15:03:33,484 INFO] Epoch [ 7/40], step [10900/56240], lr 0.000036, 73.38 s
+[2022-08-12 15:03:33,484 INFO]   loss      : 2.7813 
+[2022-08-12 15:04:46,140 INFO] Epoch [ 7/40], step [11000/56240], lr 0.000036, 72.66 s
+[2022-08-12 15:04:46,143 INFO]   loss      : 2.7800 
+[2022-08-12 15:04:46,143 INFO] ========== Evaluation at global step 11000 ==========
+[2022-08-12 15:08:07,889 INFO] Eval: 100/156 steps finished
+[2022-08-12 15:10:01,444 INFO] Inference time = 1.92s, [0.3819 ms / sample] 
+[2022-08-12 15:10:01,444 INFO] Eval loss: 2.830134552755174
+[2022-08-12 15:10:01,444 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 15:10:03,783 INFO] Best score: -2.830134552755174
+[2022-08-12 15:10:03,783 INFO] Learning rate: 0.00003575
+[2022-08-12 15:11:18,315 INFO] Epoch [ 7/40], step [11100/56240], lr 0.000036, 392.17 s
+[2022-08-12 15:11:18,316 INFO]   loss      : 2.7792 
+[2022-08-12 15:12:31,020 INFO] Epoch [ 7/40], step [11200/56240], lr 0.000036, 72.70 s
+[2022-08-12 15:12:31,023 INFO]   loss      : 2.7788 
+[2022-08-12 15:13:47,441 INFO] Epoch [ 8/40], step [11300/56240], lr 0.000036, 40.65 s
+[2022-08-12 15:13:47,441 INFO]   loss      : 2.8066 
+[2022-08-12 15:15:01,392 INFO] Epoch [ 8/40], step [11400/56240], lr 0.000035, 73.95 s
+[2022-08-12 15:15:01,392 INFO]   loss      : 2.7578 
+[2022-08-12 15:16:14,571 INFO] Epoch [ 8/40], step [11500/56240], lr 0.000035, 73.18 s
+[2022-08-12 15:16:14,572 INFO]   loss      : 2.7478 
+[2022-08-12 15:17:28,075 INFO] Epoch [ 8/40], step [11600/56240], lr 0.000035, 73.50 s
+[2022-08-12 15:17:28,077 INFO]   loss      : 2.7572 
+[2022-08-12 15:18:41,039 INFO] Epoch [ 8/40], step [11700/56240], lr 0.000035, 72.96 s
+[2022-08-12 15:18:41,039 INFO]   loss      : 2.7598 
+[2022-08-12 15:19:53,779 INFO] Epoch [ 8/40], step [11800/56240], lr 0.000035, 72.74 s
+[2022-08-12 15:19:53,780 INFO]   loss      : 2.7632 
+[2022-08-12 15:21:07,535 INFO] Epoch [ 8/40], step [11900/56240], lr 0.000035, 73.75 s
+[2022-08-12 15:21:07,536 INFO]   loss      : 2.7627 
+[2022-08-12 15:22:20,516 INFO] Epoch [ 8/40], step [12000/56240], lr 0.000035, 72.98 s
+[2022-08-12 15:22:20,518 INFO]   loss      : 2.7625 
+[2022-08-12 15:22:20,518 INFO] ========== Evaluation at global step 12000 ==========
+[2022-08-12 15:25:44,064 INFO] Eval: 100/156 steps finished
+[2022-08-12 15:27:38,302 INFO] Inference time = 1.93s, [0.3851 ms / sample] 
+[2022-08-12 15:27:38,303 INFO] Eval loss: 2.82856826569624
+[2022-08-12 15:27:38,303 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 15:27:40,829 INFO] Best score: -2.82856826569624
+[2022-08-12 15:27:40,829 INFO] Learning rate: 0.00003496
+[2022-08-12 15:28:55,530 INFO] Epoch [ 8/40], step [12100/56240], lr 0.000035, 395.01 s
+[2022-08-12 15:28:55,532 INFO]   loss      : 2.7644 
+[2022-08-12 15:30:08,577 INFO] Epoch [ 8/40], step [12200/56240], lr 0.000035, 73.04 s
+[2022-08-12 15:30:08,578 INFO]   loss      : 2.7658 
+[2022-08-12 15:31:21,584 INFO] Epoch [ 8/40], step [12300/56240], lr 0.000035, 73.01 s
+[2022-08-12 15:31:21,585 INFO]   loss      : 2.7662 
+[2022-08-12 15:32:35,543 INFO] Epoch [ 8/40], step [12400/56240], lr 0.000035, 73.96 s
+[2022-08-12 15:32:35,544 INFO]   loss      : 2.7648 
+[2022-08-12 15:33:48,588 INFO] Epoch [ 8/40], step [12500/56240], lr 0.000035, 73.04 s
+[2022-08-12 15:33:48,591 INFO]   loss      : 2.7644 
+[2022-08-12 15:35:02,183 INFO] Epoch [ 8/40], step [12600/56240], lr 0.000034, 73.59 s
+[2022-08-12 15:35:02,185 INFO]   loss      : 2.7637 
+[2022-08-12 15:36:19,106 INFO] Epoch [ 9/40], step [12700/56240], lr 0.000034, 36.63 s
+[2022-08-12 15:36:19,107 INFO]   loss      : 2.7829 
+[2022-08-12 15:37:32,134 INFO] Epoch [ 9/40], step [12800/56240], lr 0.000034, 73.03 s
+[2022-08-12 15:37:32,136 INFO]   loss      : 2.7437 
+[2022-08-12 15:38:45,552 INFO] Epoch [ 9/40], step [12900/56240], lr 0.000034, 73.42 s
+[2022-08-12 15:38:45,554 INFO]   loss      : 2.7345 
+[2022-08-12 15:39:57,987 INFO] Epoch [ 9/40], step [13000/56240], lr 0.000034, 72.43 s
+[2022-08-12 15:39:57,989 INFO]   loss      : 2.7420 
+[2022-08-12 15:39:57,990 INFO] ========== Evaluation at global step 13000 ==========
+[2022-08-12 15:43:22,259 INFO] Eval: 100/156 steps finished
+[2022-08-12 15:45:17,366 INFO] Inference time = 1.93s, [0.3849 ms / sample] 
+[2022-08-12 15:45:17,367 INFO] Eval loss: 2.8277683197313053
+[2022-08-12 15:45:17,367 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 15:45:20,153 INFO] Best score: -2.8277683197313053
+[2022-08-12 15:45:20,154 INFO] Learning rate: 0.00003417
+[2022-08-12 15:46:34,759 INFO] Epoch [ 9/40], step [13100/56240], lr 0.000034, 396.77 s
+[2022-08-12 15:46:34,759 INFO]   loss      : 2.7439 
+[2022-08-12 15:47:47,640 INFO] Epoch [ 9/40], step [13200/56240], lr 0.000034, 72.88 s
+[2022-08-12 15:47:47,642 INFO]   loss      : 2.7491 
+[2022-08-12 15:49:00,418 INFO] Epoch [ 9/40], step [13300/56240], lr 0.000034, 72.78 s
+[2022-08-12 15:49:00,419 INFO]   loss      : 2.7479 
+[2022-08-12 15:50:13,964 INFO] Epoch [ 9/40], step [13400/56240], lr 0.000034, 73.54 s
+[2022-08-12 15:50:13,964 INFO]   loss      : 2.7484 
+[2022-08-12 15:51:26,767 INFO] Epoch [ 9/40], step [13500/56240], lr 0.000034, 72.80 s
+[2022-08-12 15:51:26,768 INFO]   loss      : 2.7503 
+[2022-08-12 15:52:39,903 INFO] Epoch [ 9/40], step [13600/56240], lr 0.000034, 73.13 s
+[2022-08-12 15:52:39,905 INFO]   loss      : 2.7521 
+[2022-08-12 15:53:52,856 INFO] Epoch [ 9/40], step [13700/56240], lr 0.000034, 72.95 s
+[2022-08-12 15:53:52,857 INFO]   loss      : 2.7523 
+[2022-08-12 15:55:05,452 INFO] Epoch [ 9/40], step [13800/56240], lr 0.000034, 72.59 s
+[2022-08-12 15:55:05,455 INFO]   loss      : 2.7507 
+[2022-08-12 15:56:18,979 INFO] Epoch [ 9/40], step [13900/56240], lr 0.000033, 73.52 s
+[2022-08-12 15:56:18,980 INFO]   loss      : 2.7508 
+[2022-08-12 15:57:31,947 INFO] Epoch [ 9/40], step [14000/56240], lr 0.000033, 72.97 s
+[2022-08-12 15:57:31,949 INFO]   loss      : 2.7497 
+[2022-08-12 15:57:31,949 INFO] ========== Evaluation at global step 14000 ==========
+[2022-08-12 16:00:53,932 INFO] Eval: 100/156 steps finished
+[2022-08-12 16:02:47,664 INFO] Inference time = 1.94s, [0.3860 ms / sample] 
+[2022-08-12 16:02:47,664 INFO] Eval loss: 2.8275355153782353
+[2022-08-12 16:02:47,664 INFO] Saving best model to ./tmp/finetune_model/pytorch_model.bin...
+[2022-08-12 16:02:50,699 INFO] Best score: -2.8275355153782353
+[2022-08-12 16:02:50,699 INFO] Learning rate: 0.00003338
+[2022-08-12 16:04:11,130 INFO] Epoch [10/40], step [14100/56240], lr 0.000033, 34.41 s
+[2022-08-12 16:04:11,132 INFO]   loss      : 2.7783 
+[2022-08-12 16:05:24,732 INFO] Epoch [10/40], step [14200/56240], lr 0.000033, 73.60 s
+[2022-08-12 16:05:24,734 INFO]   loss      : 2.7301 
+[2022-08-12 16:06:37,835 INFO] Epoch [10/40], step [14300/56240], lr 0.000033, 73.10 s
+[2022-08-12 16:06:37,837 INFO]   loss      : 2.7218 
+[2022-08-12 16:07:51,467 INFO] Epoch [10/40], step [14400/56240], lr 0.000033, 73.63 s
+[2022-08-12 16:07:51,468 INFO]   loss      : 2.7283 
+[2022-08-12 16:09:04,311 INFO] Epoch [10/40], step [14500/56240], lr 0.000033, 72.84 s
+[2022-08-12 16:09:04,312 INFO]   loss      : 2.7307 
+[2022-08-12 16:10:17,784 INFO] Epoch [10/40], step [14600/56240], lr 0.000033, 73.47 s
+[2022-08-12 16:10:17,784 INFO]   loss      : 2.7365 
+[2022-08-12 16:11:31,343 INFO] Epoch [10/40], step [14700/56240], lr 0.000033, 73.56 s
+[2022-08-12 16:11:31,344 INFO]   loss      : 2.7345 
+[2022-08-12 16:12:44,853 INFO] Epoch [10/40], step [14800/56240], lr 0.000033, 73.51 s
+[2022-08-12 16:12:44,854 INFO]   loss      : 2.7352 
+[2022-08-12 16:13:58,376 INFO] Epoch [10/40], step [14900/56240], lr 0.000033, 73.52 s
+[2022-08-12 16:13:58,377 INFO]   loss      : 2.7368 
+[2022-08-12 16:15:11,284 INFO] Epoch [10/40], step [15000/56240], lr 0.000033, 72.91 s
+[2022-08-12 16:15:11,287 INFO]   loss      : 2.7392 
+[2022-08-12 16:15:11,287 INFO] ========== Evaluation at global step 15000 ==========
+[2022-08-12 16:18:33,865 INFO] Eval: 100/156 steps finished
+[2022-08-12 16:20:27,948 INFO] Inference time = 1.92s, [0.3826 ms / sample] 
+[2022-08-12 16:20:27,948 INFO] Eval loss: 2.828449206747067
+[2022-08-12 16:20:27,948 INFO] Best score: -2.8275355153782353
+[2022-08-12 16:20:27,948 INFO] Learning rate: 0.00003259
+[2022-08-12 16:21:42,836 INFO] Epoch [10/40], step [15100/56240], lr 0.000033, 391.55 s
+[2022-08-12 16:21:42,839 INFO]   loss      : 2.7383 
+[2022-08-12 16:22:55,991 INFO] Epoch [10/40], step [15200/56240], lr 0.000032, 73.15 s
+[2022-08-12 16:22:55,992 INFO]   loss      : 2.7375 
+[2022-08-12 16:24:08,832 INFO] Epoch [10/40], step [15300/56240], lr 0.000032, 72.84 s
+[2022-08-12 16:24:08,834 INFO]   loss      : 2.7375 
+[2022-08-12 16:25:22,315 INFO] Epoch [10/40], step [15400/56240], lr 0.000032, 73.48 s
+[2022-08-12 16:25:22,316 INFO]   loss      : 2.7368 
+[2022-08-12 16:26:40,057 INFO] Epoch [11/40], step [15500/56240], lr 0.000032, 28.54 s
+[2022-08-12 16:26:40,057 INFO]   loss      : 2.7530 
+[2022-08-12 16:27:53,840 INFO] Epoch [11/40], step [15600/56240], lr 0.000032, 73.78 s
+[2022-08-12 16:27:53,842 INFO]   loss      : 2.7173 
+[2022-08-12 16:29:06,947 INFO] Epoch [11/40], step [15700/56240], lr 0.000032, 73.10 s
+[2022-08-12 16:29:06,947 INFO]   loss      : 2.7078 
+[2022-08-12 16:30:19,730 INFO] Epoch [11/40], step [15800/56240], lr 0.000032, 72.78 s
+[2022-08-12 16:30:19,732 INFO]   loss      : 2.7153 
+[2022-08-12 16:31:33,331 INFO] Epoch [11/40], step [15900/56240], lr 0.000032, 73.60 s
+[2022-08-12 16:31:33,332 INFO]   loss      : 2.7176 
+[2022-08-12 16:32:46,403 INFO] Epoch [11/40], step [16000/56240], lr 0.000032, 73.07 s
+[2022-08-12 16:32:46,404 INFO]   loss      : 2.7235 
+[2022-08-12 16:32:46,404 INFO] ========== Evaluation at global step 16000 ==========
+[2022-08-12 16:36:08,710 INFO] Eval: 100/156 steps finished
+[2022-08-12 16:38:02,780 INFO] Inference time = 1.93s, [0.3843 ms / sample] 
+[2022-08-12 16:38:02,780 INFO] Eval loss: 2.8307168620407204
+[2022-08-12 16:38:02,780 INFO] Best score: -2.8275355153782353
+[2022-08-12 16:38:02,780 INFO] Learning rate: 0.00003180
+[2022-08-12 16:39:17,567 INFO] Epoch [11/40], step [16100/56240], lr 0.000032, 391.16 s
+[2022-08-12 16:39:17,568 INFO]   loss      : 2.7214 
+[2022-08-12 16:40:30,431 INFO] Epoch [11/40], step [16200/56240], lr 0.000032, 72.86 s
+[2022-08-12 16:40:30,433 INFO]   loss      : 2.7217 
+[2022-08-12 16:41:43,252 INFO] Epoch [11/40], step [16300/56240], lr 0.000032, 72.82 s
+[2022-08-12 16:41:43,254 INFO]   loss      : 2.7233 
+[2022-08-12 16:42:57,264 INFO] Epoch [11/40], step [16400/56240], lr 0.000031, 74.01 s
+[2022-08-12 16:42:57,266 INFO]   loss      : 2.7261 
+[2022-08-12 16:44:10,082 INFO] Epoch [11/40], step [16500/56240], lr 0.000031, 72.82 s
+[2022-08-12 16:44:10,083 INFO]   loss      : 2.7259 
+[2022-08-12 16:45:23,808 INFO] Epoch [11/40], step [16600/56240], lr 0.000031, 73.72 s
+[2022-08-12 16:45:23,808 INFO]   loss      : 2.7249 
+[2022-08-12 16:46:37,027 INFO] Epoch [11/40], step [16700/56240], lr 0.000031, 73.22 s
+[2022-08-12 16:46:37,028 INFO]   loss      : 2.7238 
+[2022-08-12 16:47:49,711 INFO] Epoch [11/40], step [16800/56240], lr 0.000031, 72.68 s
+[2022-08-12 16:47:49,711 INFO]   loss      : 2.7244 
+[2022-08-12 16:49:08,038 INFO] Epoch [12/40], step [16900/56240], lr 0.000031, 24.32 s
+[2022-08-12 16:49:08,039 INFO]   loss      : 2.7462 
+[2022-08-12 16:50:21,780 INFO] Epoch [12/40], step [17000/56240], lr 0.000031, 73.74 s
+[2022-08-12 16:50:21,780 INFO]   loss      : 2.7056 
+[2022-08-12 16:50:21,780 INFO] ========== Evaluation at global step 17000 ==========
+[2022-08-12 16:53:43,793 INFO] Eval: 100/156 steps finished
+[2022-08-12 16:55:37,371 INFO] Inference time = 1.93s, [0.3839 ms / sample] 
+[2022-08-12 16:55:37,371 INFO] Eval loss: 2.8307436788158054
+[2022-08-12 16:55:37,371 INFO] Best score: -2.8275355153782353
+[2022-08-12 16:55:37,371 INFO] Learning rate: 0.00003101
+[2022-08-12 16:56:52,455 INFO] Epoch [12/40], step [17100/56240], lr 0.000031, 390.68 s
+[2022-08-12 16:56:52,458 INFO]   loss      : 2.6971 
+[2022-08-12 16:58:05,527 INFO] Epoch [12/40], step [17200/56240], lr 0.000031, 73.07 s
+[2022-08-12 16:58:05,529 INFO]   loss      : 2.7013 
+[2022-08-12 16:59:18,498 INFO] Epoch [12/40], step [17300/56240], lr 0.000031, 72.97 s
+[2022-08-12 16:59:18,499 INFO]   loss      : 2.7044 
+[2022-08-12 17:00:32,475 INFO] Epoch [12/40], step [17400/56240], lr 0.000031, 73.98 s
+[2022-08-12 17:00:32,477 INFO]   loss      : 2.7103 
+[2022-08-12 17:01:45,164 INFO] Epoch [12/40], step [17500/56240], lr 0.000031, 72.69 s
+[2022-08-12 17:01:45,166 INFO]   loss      : 2.7094 
+[2022-08-12 17:02:58,928 INFO] Epoch [12/40], step [17600/56240], lr 0.000031, 73.76 s
+[2022-08-12 17:02:58,928 INFO]   loss      : 2.7096 
+[2022-08-12 17:04:12,387 INFO] Epoch [12/40], step [17700/56240], lr 0.000030, 73.46 s
+[2022-08-12 17:04:12,390 INFO]   loss      : 2.7113 
+[2022-08-12 17:05:25,254 INFO] Epoch [12/40], step [17800/56240], lr 0.000030, 72.86 s
+[2022-08-12 17:05:25,255 INFO]   loss      : 2.7129 
+[2022-08-12 17:06:38,956 INFO] Epoch [12/40], step [17900/56240], lr 0.000030, 73.70 s
+[2022-08-12 17:06:38,958 INFO]   loss      : 2.7136 
+[2022-08-12 17:07:51,952 INFO] Epoch [12/40], step [18000/56240], lr 0.000030, 72.99 s
+[2022-08-12 17:07:51,954 INFO]   loss      : 2.7129 
+[2022-08-12 17:07:51,955 INFO] ========== Evaluation at global step 18000 ==========
+[2022-08-12 17:11:14,309 INFO] Eval: 100/156 steps finished
+[2022-08-12 17:13:08,373 INFO] Inference time = 1.93s, [0.3837 ms / sample] 
+[2022-08-12 17:13:08,373 INFO] Eval loss: 2.8335850967723095
+[2022-08-12 17:13:08,373 INFO] Best score: -2.8275355153782353
+[2022-08-12 17:13:08,373 INFO] Learning rate: 0.00003022
+[2022-08-12 17:14:23,403 INFO] Epoch [12/40], step [18100/56240], lr 0.000030, 391.45 s
+[2022-08-12 17:14:23,404 INFO]   loss      : 2.7114 
+[2022-08-12 17:15:36,461 INFO] Epoch [12/40], step [18200/56240], lr 0.000030, 73.06 s
+[2022-08-12 17:15:36,463 INFO]   loss      : 2.7114 
+[2022-08-12 17:16:55,152 INFO] Epoch [13/40], step [18300/56240], lr 0.000030, 20.84 s
+[2022-08-12 17:16:55,154 INFO]   loss      : 2.7234 
+[2022-08-12 17:18:09,677 INFO] Epoch [13/40], step [18400/56240], lr 0.000030, 74.52 s
+[2022-08-12 17:18:09,678 INFO]   loss      : 2.6949 
+[2022-08-12 17:19:22,722 INFO] Epoch [13/40], step [18500/56240], lr 0.000030, 73.04 s
+[2022-08-12 17:19:22,723 INFO]   loss      : 2.6844 
+[2022-08-12 17:20:36,361 INFO] Epoch [13/40], step [18600/56240], lr 0.000030, 73.64 s
+[2022-08-12 17:20:36,363 INFO]   loss      : 2.6905 
+[2022-08-12 17:21:49,544 INFO] Epoch [13/40], step [18700/56240], lr 0.000030, 73.18 s
+[2022-08-12 17:21:49,545 INFO]   loss      : 2.6939 
+[2022-08-12 17:23:02,237 INFO] Epoch [13/40], step [18800/56240], lr 0.000030, 72.69 s
+[2022-08-12 17:23:02,239 INFO]   loss      : 2.6975 
+[2022-08-12 17:24:15,937 INFO] Epoch [13/40], step [18900/56240], lr 0.000030, 73.70 s
+[2022-08-12 17:24:15,940 INFO]   loss      : 2.6978 
+[2022-08-12 17:25:28,670 INFO] Epoch [13/40], step [19000/56240], lr 0.000029, 72.73 s
+[2022-08-12 17:25:28,671 INFO]   loss      : 2.6975 
+[2022-08-12 17:25:28,672 INFO] ========== Evaluation at global step 19000 ==========
+[2022-08-12 17:28:50,879 INFO] Eval: 100/156 steps finished
+[2022-08-12 17:30:45,315 INFO] Inference time = 1.93s, [0.3851 ms / sample] 
+[2022-08-12 17:30:45,316 INFO] Eval loss: 2.835282049361308
+[2022-08-12 17:30:45,316 INFO] Best score: -2.8275355153782353
+[2022-08-12 17:30:45,316 INFO] Learning rate: 0.00002943
+[2022-08-12 17:32:00,267 INFO] Epoch [13/40], step [19100/56240], lr 0.000029, 391.60 s
+[2022-08-12 17:32:00,268 INFO]   loss      : 2.6992 
+[2022-08-12 17:33:13,159 INFO] Epoch [13/40], step [19200/56240], lr 0.000029, 72.89 s
+[2022-08-12 17:33:13,160 INFO]   loss      : 2.7007 
+[2022-08-12 17:34:25,955 INFO] Epoch [13/40], step [19300/56240], lr 0.000029, 72.80 s
+[2022-08-12 17:34:25,957 INFO]   loss      : 2.7015 
+[2022-08-12 17:35:39,720 INFO] Epoch [13/40], step [19400/56240], lr 0.000029, 73.76 s
+[2022-08-12 17:35:39,722 INFO]   loss      : 2.7010 
+[2022-08-12 17:36:52,302 INFO] Epoch [13/40], step [19500/56240], lr 0.000029, 72.58 s
+[2022-08-12 17:36:52,305 INFO]   loss      : 2.6994 
+[2022-08-12 17:38:05,935 INFO] Epoch [13/40], step [19600/56240], lr 0.000029, 73.63 s
+[2022-08-12 17:38:05,936 INFO]   loss      : 2.6995 
+[2022-08-12 17:39:24,019 INFO] Epoch [14/40], step [19700/56240], lr 0.000029, 15.66 s
+[2022-08-12 17:39:24,020 INFO]   loss      : 2.7154 
+[2022-08-12 17:40:38,000 INFO] Epoch [14/40], step [19800/56240], lr 0.000029, 73.98 s
+[2022-08-12 17:40:38,001 INFO]   loss      : 2.6840 
+[2022-08-12 17:41:51,268 INFO] Epoch [14/40], step [19900/56240], lr 0.000029, 73.27 s
+[2022-08-12 17:41:51,270 INFO]   loss      : 2.6766 
+[2022-08-12 17:43:03,740 INFO] Epoch [14/40], step [20000/56240], lr 0.000029, 72.47 s
+[2022-08-12 17:43:03,742 INFO]   loss      : 2.6761 
+[2022-08-12 17:43:03,742 INFO] ========== Evaluation at global step 20000 ==========
+[2022-08-12 17:46:27,237 INFO] Eval: 100/156 steps finished
+[2022-08-12 17:48:21,792 INFO] Inference time = 1.94s, [0.3853 ms / sample] 
+[2022-08-12 17:48:21,792 INFO] Eval loss: 2.8376781439325613
+[2022-08-12 17:48:21,792 INFO] Best score: -2.8275355153782353
+[2022-08-12 17:48:21,792 INFO] Learning rate: 0.00002864
+[2022-08-12 17:49:37,115 INFO] Epoch [14/40], step [20100/56240], lr 0.000029, 393.37 s
+[2022-08-12 17:49:37,117 INFO]   loss      : 2.6840 
+[2022-08-12 17:50:50,305 INFO] Epoch [14/40], step [20200/56240], lr 0.000028, 73.19 s
+[2022-08-12 17:50:50,305 INFO]   loss      : 2.6861 
+[2022-08-12 17:52:03,286 INFO] Epoch [14/40], step [20300/56240], lr 0.000028, 72.98 s
+[2022-08-12 17:52:03,287 INFO]   loss      : 2.6855 
+[2022-08-12 17:53:17,407 INFO] Epoch [14/40], step [20400/56240], lr 0.000028, 74.12 s
+[2022-08-12 17:53:17,408 INFO]   loss      : 2.6864 
+[2022-08-12 17:54:30,245 INFO] Epoch [14/40], step [20500/56240], lr 0.000028, 72.84 s
+[2022-08-12 17:54:30,245 INFO]   loss      : 2.6870 
+[2022-08-12 17:55:44,134 INFO] Epoch [14/40], step [20600/56240], lr 0.000028, 73.89 s
+[2022-08-12 17:55:44,135 INFO]   loss      : 2.6883 
+[2022-08-12 17:56:57,264 INFO] Epoch [14/40], step [20700/56240], lr 0.000028, 73.13 s
+[2022-08-12 17:56:57,264 INFO]   loss      : 2.6897 
+[2022-08-12 17:58:10,013 INFO] Epoch [14/40], step [20800/56240], lr 0.000028, 72.75 s
+[2022-08-12 17:58:10,015 INFO]   loss      : 2.6890 
+[2022-08-12 17:59:23,999 INFO] Epoch [14/40], step [20900/56240], lr 0.000028, 73.98 s
+[2022-08-12 17:59:24,001 INFO]   loss      : 2.6878 
+[2022-08-12 18:00:36,995 INFO] Epoch [14/40], step [21000/56240], lr 0.000028, 72.99 s
+[2022-08-12 18:00:36,997 INFO]   loss      : 2.6879 
+[2022-08-12 18:00:36,997 INFO] ========== Evaluation at global step 21000 ==========
+[2022-08-12 18:03:59,113 INFO] Eval: 100/156 steps finished
+[2022-08-12 18:05:52,888 INFO] Inference time = 1.94s, [0.3855 ms / sample] 
+[2022-08-12 18:05:52,888 INFO] Eval loss: 2.841706821113635
+[2022-08-12 18:05:52,888 INFO] Best score: -2.8275355153782353
+[2022-08-12 18:05:52,888 INFO] Learning rate: 0.00002785
+[2022-08-12 18:07:12,982 INFO] Epoch [15/40], step [21100/56240], lr 0.000028, 11.02 s
+[2022-08-12 18:07:12,984 INFO]   loss      : 2.6755 
+[2022-08-12 18:08:26,259 INFO] Epoch [15/40], step [21200/56240], lr 0.000028, 73.27 s
+[2022-08-12 18:08:26,261 INFO]   loss      : 2.6746 
+[2022-08-12 18:09:39,280 INFO] Epoch [15/40], step [21300/56240], lr 0.000028, 73.02 s
+[2022-08-12 18:09:39,282 INFO]   loss      : 2.6625 
+[2022-08-12 18:10:52,956 INFO] Epoch [15/40], step [21400/56240], lr 0.000028, 73.67 s
+[2022-08-12 18:10:52,957 INFO]   loss      : 2.6652 
+[2022-08-12 18:12:05,601 INFO] Epoch [15/40], step [21500/56240], lr 0.000027, 72.64 s
+[2022-08-12 18:12:05,603 INFO]   loss      : 2.6723 
+[2022-08-12 18:13:19,461 INFO] Epoch [15/40], step [21600/56240], lr 0.000027, 73.86 s
+[2022-08-12 18:13:19,461 INFO]   loss      : 2.6741 
+[2022-08-12 18:14:32,643 INFO] Epoch [15/40], step [21700/56240], lr 0.000027, 73.18 s
+[2022-08-12 18:14:32,643 INFO]   loss      : 2.6743 
+[2022-08-12 18:15:45,582 INFO] Epoch [15/40], step [21800/56240], lr 0.000027, 72.94 s
+[2022-08-12 18:15:45,583 INFO]   loss      : 2.6744 
+[2022-08-12 18:16:58,942 INFO] Epoch [15/40], step [21900/56240], lr 0.000027, 73.36 s
+[2022-08-12 18:16:58,943 INFO]   loss      : 2.6752 
+[2022-08-12 18:18:11,691 INFO] Epoch [15/40], step [22000/56240], lr 0.000027, 72.75 s
+[2022-08-12 18:18:11,691 INFO]   loss      : 2.6763 
+[2022-08-12 18:18:11,692 INFO] ========== Evaluation at global step 22000 ==========
+[2022-08-12 18:21:33,784 INFO] Eval: 100/156 steps finished
+[2022-08-12 18:23:27,466 INFO] Inference time = 1.93s, [0.3849 ms / sample] 
+[2022-08-12 18:23:27,466 INFO] Eval loss: 2.8442413746171695
+[2022-08-12 18:23:27,466 INFO] Best score: -2.8275355153782353
+[2022-08-12 18:23:27,466 INFO] Learning rate: 0.00002706
+[2022-08-12 18:24:42,455 INFO] Epoch [15/40], step [22100/56240], lr 0.000027, 390.76 s
+[2022-08-12 18:24:42,456 INFO]   loss      : 2.6777 
+[2022-08-12 18:25:55,311 INFO] Epoch [15/40], step [22200/56240], lr 0.000027, 72.85 s
+[2022-08-12 18:25:55,312 INFO]   loss      : 2.6772 
+[2022-08-12 18:27:08,157 INFO] Epoch [15/40], step [22300/56240], lr 0.000027, 72.85 s
+[2022-08-12 18:27:08,158 INFO]   loss      : 2.6762 
+[2022-08-12 18:28:21,802 INFO] Epoch [15/40], step [22400/56240], lr 0.000027, 73.64 s
+[2022-08-12 18:28:21,803 INFO]   loss      : 2.6762 
+[2022-08-12 18:29:38,375 INFO] Epoch [16/40], step [22500/56240], lr 0.000027, 5.95 s
+[2022-08-12 18:29:38,377 INFO]   loss      : 2.6859 
+[2022-08-12 18:30:53,053 INFO] Epoch [16/40], step [22600/56240], lr 0.000027, 74.68 s
+[2022-08-12 18:30:53,053 INFO]   loss      : 2.6646 
+[2022-08-12 18:32:07,023 INFO] Epoch [16/40], step [22700/56240], lr 0.000027, 73.97 s
+[2022-08-12 18:32:07,024 INFO]   loss      : 2.6498 
+[2022-08-12 18:33:19,716 INFO] Epoch [16/40], step [22800/56240], lr 0.000026, 72.69 s
+[2022-08-12 18:33:19,719 INFO]   loss      : 2.6524 
+[2022-08-12 18:34:33,447 INFO] Epoch [16/40], step [22900/56240], lr 0.000026, 73.73 s
+[2022-08-12 18:34:33,450 INFO]   loss      : 2.6605 
+[2022-08-12 18:35:46,584 INFO] Epoch [16/40], step [23000/56240], lr 0.000026, 73.13 s
+[2022-08-12 18:35:46,584 INFO]   loss      : 2.6611 
+[2022-08-12 18:35:46,585 INFO] ========== Evaluation at global step 23000 ==========
+[2022-08-12 18:39:08,570 INFO] Eval: 100/156 steps finished
+[2022-08-12 18:41:01,908 INFO] Inference time = 1.93s, [0.3849 ms / sample] 
+[2022-08-12 18:41:01,908 INFO] Eval loss: 2.847128041990244
+[2022-08-12 18:41:01,908 INFO] Best score: -2.8275355153782353
+[2022-08-12 18:41:01,908 INFO] Learning rate: 0.00002627
+[2022-08-12 18:42:17,208 INFO] Epoch [16/40], step [23100/56240], lr 0.000026, 390.62 s
+[2022-08-12 18:42:17,209 INFO]   loss      : 2.6636 
+[2022-08-12 18:43:30,287 INFO] Epoch [16/40], step [23200/56240], lr 0.000026, 73.08 s
+[2022-08-12 18:43:30,290 INFO]   loss      : 2.6632 
+[2022-08-12 18:44:43,098 INFO] Epoch [16/40], step [23300/56240], lr 0.000026, 72.81 s
+[2022-08-12 18:44:43,099 INFO]   loss      : 2.6632 
+[2022-08-12 18:45:57,011 INFO] Epoch [16/40], step [23400/56240], lr 0.000026, 73.91 s
+[2022-08-12 18:45:57,012 INFO]   loss      : 2.6646 
+[2022-08-12 18:47:09,622 INFO] Epoch [16/40], step [23500/56240], lr 0.000026, 72.61 s
+[2022-08-12 18:47:09,625 INFO]   loss      : 2.6655 
+[2022-08-12 18:48:23,297 INFO] Epoch [16/40], step [23600/56240], lr 0.000026, 73.67 s
+[2022-08-12 18:48:23,300 INFO]   loss      : 2.6653 
+[2022-08-12 18:49:36,516 INFO] Epoch [16/40], step [23700/56240], lr 0.000026, 73.22 s
+[2022-08-12 18:49:36,519 INFO]   loss      : 2.6645 
+[2022-08-12 18:50:49,291 INFO] Epoch [16/40], step [23800/56240], lr 0.000026, 72.77 s
+[2022-08-12 18:50:49,293 INFO]   loss      : 2.6645 
+[2022-08-12 18:52:02,971 INFO] Epoch [16/40], step [23900/56240], lr 0.000026, 73.68 s
+[2022-08-12 18:52:02,973 INFO]   loss      : 2.6632 
+[2022-08-12 18:53:20,619 INFO] Epoch [17/40], step [24000/56240], lr 0.000025, 75.22 s
+[2022-08-12 18:53:20,621 INFO]   loss      : 2.6538 
+[2022-08-12 18:53:20,621 INFO] ========== Evaluation at global step 24000 ==========
+[2022-08-12 18:56:43,010 INFO] Eval: 100/156 steps finished
+[2022-08-12 18:58:36,675 INFO] Inference time = 1.91s, [0.3808 ms / sample] 
+[2022-08-12 18:58:36,675 INFO] Eval loss: 2.851341268818849
+[2022-08-12 18:58:36,675 INFO] Best score: -2.8275355153782353
+[2022-08-12 18:58:36,675 INFO] Learning rate: 0.00002548
+[2022-08-12 18:59:51,749 INFO] Epoch [17/40], step [24100/56240], lr 0.000025, 391.13 s
+[2022-08-12 18:59:51,750 INFO]   loss      : 2.6408 
+[2022-08-12 19:01:04,653 INFO] Epoch [17/40], step [24200/56240], lr 0.000025, 72.90 s
+[2022-08-12 19:01:04,654 INFO]   loss      : 2.6393 
+[2022-08-12 19:02:17,361 INFO] Epoch [17/40], step [24300/56240], lr 0.000025, 72.71 s
+[2022-08-12 19:02:17,361 INFO]   loss      : 2.6485 
+[2022-08-12 19:03:31,032 INFO] Epoch [17/40], step [24400/56240], lr 0.000025, 73.67 s
+[2022-08-12 19:03:31,033 INFO]   loss      : 2.6500 
+[2022-08-12 19:04:43,505 INFO] Epoch [17/40], step [24500/56240], lr 0.000025, 72.47 s
+[2022-08-12 19:04:43,508 INFO]   loss      : 2.6524 
+[2022-08-12 19:05:56,834 INFO] Epoch [17/40], step [24600/56240], lr 0.000025, 73.33 s
+[2022-08-12 19:05:56,834 INFO]   loss      : 2.6511 
+[2022-08-12 19:07:09,754 INFO] Epoch [17/40], step [24700/56240], lr 0.000025, 72.92 s
+[2022-08-12 19:07:09,755 INFO]   loss      : 2.6518 
+[2022-08-12 19:08:22,360 INFO] Epoch [17/40], step [24800/56240], lr 0.000025, 72.60 s
+[2022-08-12 19:08:22,360 INFO]   loss      : 2.6528 
+[2022-08-12 19:09:36,290 INFO] Epoch [17/40], step [24900/56240], lr 0.000025, 73.93 s
+[2022-08-12 19:09:36,290 INFO]   loss      : 2.6539 
+[2022-08-12 19:10:49,340 INFO] Epoch [17/40], step [25000/56240], lr 0.000025, 73.05 s
+[2022-08-12 19:10:49,342 INFO]   loss      : 2.6539 
+[2022-08-12 19:10:49,342 INFO] ========== Evaluation at global step 25000 ==========
+[2022-08-12 19:14:12,463 INFO] Eval: 100/156 steps finished
+[2022-08-12 19:16:06,057 INFO] Inference time = 1.92s, [0.3825 ms / sample] 
+[2022-08-12 19:16:06,057 INFO] Eval loss: 2.8568288611758286
+[2022-08-12 19:16:06,057 INFO] Best score: -2.8275355153782353
+[2022-08-12 19:16:06,058 INFO] Learning rate: 0.00002469
+[2022-08-12 19:17:20,840 INFO] Epoch [17/40], step [25100/56240], lr 0.000025, 391.50 s
+[2022-08-12 19:17:20,842 INFO]   loss      : 2.6529 
+[2022-08-12 19:18:33,524 INFO] Epoch [17/40], step [25200/56240], lr 0.000025, 72.68 s
+[2022-08-12 19:18:33,527 INFO]   loss      : 2.6532 
+[2022-08-12 19:19:46,026 INFO] Epoch [17/40], step [25300/56240], lr 0.000024, 72.50 s
+[2022-08-12 19:19:46,027 INFO]   loss      : 2.6516 
+[2022-08-12 19:21:05,320 INFO] Epoch [18/40], step [25400/56240], lr 0.000024, 72.49 s
+[2022-08-12 19:21:05,322 INFO]   loss      : 2.6456 
+[2022-08-12 19:22:18,539 INFO] Epoch [18/40], step [25500/56240], lr 0.000024, 73.22 s
+[2022-08-12 19:22:18,539 INFO]   loss      : 2.6336 
+[2022-08-12 19:23:32,467 INFO] Epoch [18/40], step [25600/56240], lr 0.000024, 73.93 s
+[2022-08-12 19:23:32,469 INFO]   loss      : 2.6274 
+[2022-08-12 19:24:45,436 INFO] Epoch [18/40], step [25700/56240], lr 0.000024, 72.97 s
+[2022-08-12 19:24:45,436 INFO]   loss      : 2.6367 
+[2022-08-12 19:25:58,211 INFO] Epoch [18/40], step [25800/56240], lr 0.000024, 72.77 s
+[2022-08-12 19:25:58,212 INFO]   loss      : 2.6381 
+[2022-08-12 19:27:11,862 INFO] Epoch [18/40], step [25900/56240], lr 0.000024, 73.65 s
+[2022-08-12 19:27:11,863 INFO]   loss      : 2.6412 
+[2022-08-12 19:28:24,603 INFO] Epoch [18/40], step [26000/56240], lr 0.000024, 72.74 s
+[2022-08-12 19:28:24,605 INFO]   loss      : 2.6390 
+[2022-08-12 19:28:24,605 INFO] ========== Evaluation at global step 26000 ==========
+[2022-08-12 19:31:45,493 INFO] Eval: 100/156 steps finished
+[2022-08-12 19:33:38,528 INFO] Inference time = 1.93s, [0.3841 ms / sample] 
+[2022-08-12 19:33:38,528 INFO] Eval loss: 2.861604371647926
+[2022-08-12 19:33:38,528 INFO] Best score: -2.8275355153782353
+[2022-08-12 19:33:38,528 INFO] Learning rate: 0.00002390
+[2022-08-12 19:34:53,795 INFO] Epoch [18/40], step [26100/56240], lr 0.000024, 389.19 s
+[2022-08-12 19:34:53,795 INFO]   loss      : 2.6402 
+[2022-08-12 19:36:06,864 INFO] Epoch [18/40], step [26200/56240], lr 0.000024, 73.07 s
+[2022-08-12 19:36:06,865 INFO]   loss      : 2.6410 
+[2022-08-12 19:37:19,691 INFO] Epoch [18/40], step [26300/56240], lr 0.000024, 72.83 s
+[2022-08-12 19:37:19,693 INFO]   loss      : 2.6420 
+[2022-08-12 19:38:33,411 INFO] Epoch [18/40], step [26400/56240], lr 0.000024, 73.72 s
+[2022-08-12 19:38:33,412 INFO]   loss      : 2.6426 
+[2022-08-12 19:39:46,187 INFO] Epoch [18/40], step [26500/56240], lr 0.000024, 72.77 s
+[2022-08-12 19:39:46,187 INFO]   loss      : 2.6411 
+[2022-08-12 19:40:59,268 INFO] Epoch [18/40], step [26600/56240], lr 0.000023, 73.08 s
+[2022-08-12 19:40:59,270 INFO]   loss      : 2.6412 
+[2022-08-12 19:42:12,659 INFO] Epoch [18/40], step [26700/56240], lr 0.000023, 73.39 s
+[2022-08-12 19:42:12,662 INFO]   loss      : 2.6403 
+[2022-08-12 19:43:30,003 INFO] Epoch [19/40], step [26800/56240], lr 0.000023, 66.22 s
+[2022-08-12 19:43:30,005 INFO]   loss      : 2.6330 
+[2022-08-12 19:44:43,807 INFO] Epoch [19/40], step [26900/56240], lr 0.000023, 73.80 s
+[2022-08-12 19:44:43,808 INFO]   loss      : 2.6221 
+[2022-08-12 19:45:56,333 INFO] Epoch [19/40], step [27000/56240], lr 0.000023, 72.52 s
+[2022-08-12 19:45:56,335 INFO]   loss      : 2.6139 
+[2022-08-12 19:45:56,336 INFO] ========== Evaluation at global step 27000 ==========
+[2022-08-12 19:49:18,626 INFO] Eval: 100/156 steps finished
+[2022-08-12 19:51:12,270 INFO] Inference time = 1.94s, [0.3858 ms / sample] 
+[2022-08-12 19:51:12,270 INFO] Eval loss: 2.8677693688945407
+[2022-08-12 19:51:12,270 INFO] Best score: -2.8275355153782353
+[2022-08-12 19:51:12,270 INFO] Learning rate: 0.00002311
+[2022-08-12 19:52:27,438 INFO] Epoch [19/40], step [27100/56240], lr 0.000023, 391.10 s
+[2022-08-12 19:52:27,438 INFO]   loss      : 2.6248 
+[2022-08-12 19:53:40,408 INFO] Epoch [19/40], step [27200/56240], lr 0.000023, 72.97 s
+[2022-08-12 19:53:40,410 INFO]   loss      : 2.6268 
+[2022-08-12 19:54:53,088 INFO] Epoch [19/40], step [27300/56240], lr 0.000023, 72.68 s
+[2022-08-12 19:54:53,090 INFO]   loss      : 2.6289 
+[2022-08-12 19:56:06,981 INFO] Epoch [19/40], step [27400/56240], lr 0.000023, 73.89 s
+[2022-08-12 19:56:06,984 INFO]   loss      : 2.6281 
+[2022-08-12 19:57:19,622 INFO] Epoch [19/40], step [27500/56240], lr 0.000023, 72.64 s
+[2022-08-12 19:57:19,625 INFO]   loss      : 2.6285 
+[2022-08-12 19:58:33,039 INFO] Epoch [19/40], step [27600/56240], lr 0.000023, 73.41 s
+[2022-08-12 19:58:33,039 INFO]   loss      : 2.6303 
+[2022-08-12 19:59:46,099 INFO] Epoch [19/40], step [27700/56240], lr 0.000023, 73.06 s
+[2022-08-12 19:59:46,099 INFO]   loss      : 2.6310 
+[2022-08-12 20:00:58,595 INFO] Epoch [19/40], step [27800/56240], lr 0.000022, 72.50 s
+[2022-08-12 20:00:58,596 INFO]   loss      : 2.6312 
+[2022-08-12 20:02:12,198 INFO] Epoch [19/40], step [27900/56240], lr 0.000022, 73.60 s
+[2022-08-12 20:02:12,199 INFO]   loss      : 2.6300 
+[2022-08-12 20:03:25,072 INFO] Epoch [19/40], step [28000/56240], lr 0.000022, 72.87 s
+[2022-08-12 20:03:25,075 INFO]   loss      : 2.6300 
+[2022-08-12 20:03:25,075 INFO] ========== Evaluation at global step 28000 ==========
+[2022-08-12 20:06:46,073 INFO] Eval: 100/156 steps finished
+[2022-08-12 20:08:38,747 INFO] Inference time = 1.92s, [0.3816 ms / sample] 
+[2022-08-12 20:08:38,747 INFO] Eval loss: 2.871424468459597
+[2022-08-12 20:08:38,747 INFO] Best score: -2.8275355153782353
+[2022-08-12 20:08:38,748 INFO] Learning rate: 0.00002232
+[2022-08-12 20:09:53,663 INFO] Epoch [19/40], step [28100/56240], lr 0.000022, 388.59 s
+[2022-08-12 20:09:53,666 INFO]   loss      : 2.6293 
+[2022-08-12 20:11:11,787 INFO] Epoch [20/40], step [28200/56240], lr 0.000022, 62.60 s
+[2022-08-12 20:11:11,790 INFO]   loss      : 2.6294 
+[2022-08-12 20:12:24,956 INFO] Epoch [20/40], step [28300/56240], lr 0.000022, 73.17 s
+[2022-08-12 20:12:24,958 INFO]   loss      : 2.6106 
+[2022-08-12 20:13:38,907 INFO] Epoch [20/40], step [28400/56240], lr 0.000022, 73.95 s
+[2022-08-12 20:13:38,908 INFO]   loss      : 2.6032 
+[2022-08-12 20:14:51,535 INFO] Epoch [20/40], step [28500/56240], lr 0.000022, 72.63 s
+[2022-08-12 20:14:51,536 INFO]   loss      : 2.6139 
+[2022-08-12 20:16:05,219 INFO] Epoch [20/40], step [28600/56240], lr 0.000022, 73.68 s
+[2022-08-12 20:16:05,221 INFO]   loss      : 2.6154 
+[2022-08-12 20:17:18,424 INFO] Epoch [20/40], step [28700/56240], lr 0.000022, 73.20 s
+[2022-08-12 20:17:18,427 INFO]   loss      : 2.6174 
+[2022-08-12 20:18:31,215 INFO] Epoch [20/40], step [28800/56240], lr 0.000022, 72.79 s
+[2022-08-12 20:18:31,217 INFO]   loss      : 2.6168 
+[2022-08-12 20:19:44,880 INFO] Epoch [20/40], step [28900/56240], lr 0.000022, 73.66 s
+[2022-08-12 20:19:44,880 INFO]   loss      : 2.6181 
+[2022-08-12 20:20:57,628 INFO] Epoch [20/40], step [29000/56240], lr 0.000022, 72.75 s
+[2022-08-12 20:20:57,630 INFO]   loss      : 2.6190 
+[2022-08-12 20:20:57,631 INFO] ========== Evaluation at global step 29000 ==========
+[2022-08-12 20:24:21,141 INFO] Eval: 100/156 steps finished
+[2022-08-12 20:26:15,626 INFO] Inference time = 1.93s, [0.3844 ms / sample] 
+[2022-08-12 20:26:15,626 INFO] Eval loss: 2.878716830235378
+[2022-08-12 20:26:15,626 INFO] Best score: -2.8275355153782353
+[2022-08-12 20:26:15,626 INFO] Learning rate: 0.00002153
+[2022-08-12 20:27:30,435 INFO] Epoch [20/40], step [29100/56240], lr 0.000021, 392.80 s
+[2022-08-12 20:27:30,437 INFO]   loss      : 2.6203 
+[2022-08-12 20:28:43,418 INFO] Epoch [20/40], step [29200/56240], lr 0.000021, 72.98 s
+[2022-08-12 20:28:43,421 INFO]   loss      : 2.6203 
+[2022-08-12 20:29:56,199 INFO] Epoch [20/40], step [29300/56240], lr 0.000021, 72.78 s
+[2022-08-12 20:29:56,201 INFO]   loss      : 2.6189 
+[2022-08-12 20:31:10,046 INFO] Epoch [20/40], step [29400/56240], lr 0.000021, 73.84 s
+[2022-08-12 20:31:10,047 INFO]   loss      : 2.6188 
+[2022-08-12 20:32:23,164 INFO] Epoch [20/40], step [29500/56240], lr 0.000021, 73.12 s
+[2022-08-12 20:32:23,165 INFO]   loss      : 2.6184 
+[2022-08-12 20:33:41,403 INFO] Epoch [21/40], step [29600/56240], lr 0.000021, 58.55 s
+[2022-08-12 20:33:41,405 INFO]   loss      : 2.6247 
+[2022-08-12 20:34:55,243 INFO] Epoch [21/40], step [29700/56240], lr 0.000021, 73.84 s
+[2022-08-12 20:34:55,246 INFO]   loss      : 2.6020 
+[2022-08-12 20:36:07,814 INFO] Epoch [21/40], step [29800/56240], lr 0.000021, 72.57 s
+[2022-08-12 20:36:07,815 INFO]   loss      : 2.5894 
+[2022-08-12 20:37:21,647 INFO] Epoch [21/40], step [29900/56240], lr 0.000021, 73.83 s
+[2022-08-12 20:37:21,647 INFO]   loss      : 2.6024 
+[2022-08-12 20:38:34,674 INFO] Epoch [21/40], step [30000/56240], lr 0.000021, 73.03 s
+[2022-08-12 20:38:34,676 INFO]   loss      : 2.6040 
+[2022-08-12 20:38:34,676 INFO] ========== Evaluation at global step 30000 ==========
+[2022-08-12 20:41:55,718 INFO] Eval: 100/156 steps finished
+[2022-08-12 20:43:48,582 INFO] Inference time = 1.92s, [0.3826 ms / sample] 
+[2022-08-12 20:43:48,582 INFO] Eval loss: 2.882924939416776
+[2022-08-12 20:43:48,582 INFO] Best score: -2.8275355153782353
+[2022-08-12 20:43:48,582 INFO] Learning rate: 0.00002074
+[2022-08-12 20:45:03,298 INFO] Epoch [21/40], step [30100/56240], lr 0.000021, 388.62 s
+[2022-08-12 20:45:03,301 INFO]   loss      : 2.6059 
+[2022-08-12 20:46:16,299 INFO] Epoch [21/40], step [30200/56240], lr 0.000021, 73.00 s
+[2022-08-12 20:46:16,300 INFO]   loss      : 2.6060 
+[2022-08-12 20:47:28,887 INFO] Epoch [21/40], step [30300/56240], lr 0.000021, 72.59 s
+[2022-08-12 20:47:28,888 INFO]   loss      : 2.6067 
+[2022-08-12 20:48:42,363 INFO] Epoch [21/40], step [30400/56240], lr 0.000020, 73.47 s
+[2022-08-12 20:48:42,364 INFO]   loss      : 2.6078 
+[2022-08-12 20:49:54,940 INFO] Epoch [21/40], step [30500/56240], lr 0.000020, 72.58 s
+[2022-08-12 20:49:54,943 INFO]   loss      : 2.6091 
+[2022-08-12 20:51:07,769 INFO] Epoch [21/40], step [30600/56240], lr 0.000020, 72.83 s
+[2022-08-12 20:51:07,771 INFO]   loss      : 2.6090 
+[2022-08-12 20:52:21,143 INFO] Epoch [21/40], step [30700/56240], lr 0.000020, 73.37 s
+[2022-08-12 20:52:21,143 INFO]   loss      : 2.6077 
+[2022-08-12 20:53:33,715 INFO] Epoch [21/40], step [30800/56240], lr 0.000020, 72.57 s
+[2022-08-12 20:53:33,715 INFO]   loss      : 2.6078 
+[2022-08-12 20:54:47,555 INFO] Epoch [21/40], step [30900/56240], lr 0.000020, 73.84 s
+[2022-08-12 20:54:47,557 INFO]   loss      : 2.6073 
+[2022-08-12 20:56:05,399 INFO] Epoch [22/40], step [31000/56240], lr 0.000020, 53.59 s
+[2022-08-12 20:56:05,400 INFO]   loss      : 2.6128 
+[2022-08-12 20:56:05,400 INFO] ========== Evaluation at global step 31000 ==========
+[2022-08-12 20:59:27,595 INFO] Eval: 100/156 steps finished
+[2022-08-12 21:01:21,050 INFO] Inference time = 1.91s, [0.3792 ms / sample] 
+[2022-08-12 21:01:21,050 INFO] Eval loss: 2.887433203921956
+[2022-08-12 21:01:21,050 INFO] Best score: -2.8275355153782353
+[2022-08-12 21:01:21,050 INFO] Learning rate: 0.00001995
+[2022-08-12 21:02:35,911 INFO] Epoch [22/40], step [31100/56240], lr 0.000020, 390.51 s
+[2022-08-12 21:02:35,914 INFO]   loss      : 2.5914 
+[2022-08-12 21:03:49,127 INFO] Epoch [22/40], step [31200/56240], lr 0.000020, 73.21 s
+[2022-08-12 21:03:49,128 INFO]   loss      : 2.5776 
+[2022-08-12 21:05:01,816 INFO] Epoch [22/40], step [31300/56240], lr 0.000020, 72.69 s
+[2022-08-12 21:05:01,817 INFO]   loss      : 2.5919 
+[2022-08-12 21:06:15,783 INFO] Epoch [22/40], step [31400/56240], lr 0.000020, 73.97 s
+[2022-08-12 21:06:15,786 INFO]   loss      : 2.5936 
+[2022-08-12 21:07:28,483 INFO] Epoch [22/40], step [31500/56240], lr 0.000020, 72.70 s
+[2022-08-12 21:07:28,485 INFO]   loss      : 2.5949 
+[2022-08-12 21:08:41,886 INFO] Epoch [22/40], step [31600/56240], lr 0.000019, 73.40 s
+[2022-08-12 21:08:41,887 INFO]   loss      : 2.5955 
+[2022-08-12 21:09:55,127 INFO] Epoch [22/40], step [31700/56240], lr 0.000019, 73.24 s
+[2022-08-12 21:09:55,128 INFO]   loss      : 2.5955 
+[2022-08-12 21:11:07,727 INFO] Epoch [22/40], step [31800/56240], lr 0.000019, 72.60 s
+[2022-08-12 21:11:07,730 INFO]   loss      : 2.5975 
+[2022-08-12 21:12:21,602 INFO] Epoch [22/40], step [31900/56240], lr 0.000019, 73.87 s
+[2022-08-12 21:12:21,604 INFO]   loss      : 2.5985 
+[2022-08-12 21:13:34,731 INFO] Epoch [22/40], step [32000/56240], lr 0.000019, 73.13 s
+[2022-08-12 21:13:34,732 INFO]   loss      : 2.5987 
+[2022-08-12 21:13:34,732 INFO] ========== Evaluation at global step 32000 ==========
+[2022-08-12 21:16:55,879 INFO] Eval: 100/156 steps finished
+[2022-08-12 21:18:49,418 INFO] Inference time = 1.93s, [0.3832 ms / sample] 
+[2022-08-12 21:18:49,418 INFO] Eval loss: 2.8929618953899214
+[2022-08-12 21:18:49,418 INFO] Best score: -2.8275355153782353
+[2022-08-12 21:18:49,418 INFO] Learning rate: 0.00001916
+[2022-08-12 21:20:04,294 INFO] Epoch [22/40], step [32100/56240], lr 0.000019, 389.56 s
+[2022-08-12 21:20:04,295 INFO]   loss      : 2.5968 
+[2022-08-12 21:21:17,522 INFO] Epoch [22/40], step [32200/56240], lr 0.000019, 73.23 s
+[2022-08-12 21:21:17,523 INFO]   loss      : 2.5971 
+[2022-08-12 21:22:30,235 INFO] Epoch [22/40], step [32300/56240], lr 0.000019, 72.71 s
+[2022-08-12 21:22:30,238 INFO]   loss      : 2.5966 
+[2022-08-12 21:23:47,779 INFO] Epoch [23/40], step [32400/56240], lr 0.000019, 48.17 s
+[2022-08-12 21:23:47,781 INFO]   loss      : 2.6056 
+[2022-08-12 21:25:01,179 INFO] Epoch [23/40], step [32500/56240], lr 0.000019, 73.40 s
+[2022-08-12 21:25:01,180 INFO]   loss      : 2.5814 
+[2022-08-12 21:26:13,506 INFO] Epoch [23/40], step [32600/56240], lr 0.000019, 72.33 s
+[2022-08-12 21:26:13,509 INFO]   loss      : 2.5684 
+[2022-08-12 21:27:25,887 INFO] Epoch [23/40], step [32700/56240], lr 0.000019, 72.38 s
+[2022-08-12 21:27:25,889 INFO]   loss      : 2.5799 
+[2022-08-12 21:28:38,382 INFO] Epoch [23/40], step [32800/56240], lr 0.000019, 72.49 s
+[2022-08-12 21:28:38,384 INFO]   loss      : 2.5824 
+[2022-08-12 21:29:50,836 INFO] Epoch [23/40], step [32900/56240], lr 0.000018, 72.45 s
+[2022-08-12 21:29:50,839 INFO]   loss      : 2.5848 
+[2022-08-12 21:31:03,508 INFO] Epoch [23/40], step [33000/56240], lr 0.000018, 72.67 s
+[2022-08-12 21:31:03,510 INFO]   loss      : 2.5847 
+[2022-08-12 21:31:03,511 INFO] ========== Evaluation at global step 33000 ==========
+[2022-08-12 21:34:25,964 INFO] Eval: 100/156 steps finished
+[2022-08-12 21:36:19,311 INFO] Inference time = 1.92s, [0.3829 ms / sample] 
+[2022-08-12 21:36:19,311 INFO] Eval loss: 2.902653466364381
+[2022-08-12 21:36:19,311 INFO] Best score: -2.8275355153782353
+[2022-08-12 21:36:19,311 INFO] Learning rate: 0.00001837
+[2022-08-12 21:37:34,071 INFO] Epoch [23/40], step [33100/56240], lr 0.000018, 390.56 s
+[2022-08-12 21:37:34,073 INFO]   loss      : 2.5847 
+[2022-08-12 21:38:47,027 INFO] Epoch [23/40], step [33200/56240], lr 0.000018, 72.95 s
+[2022-08-12 21:38:47,030 INFO]   loss      : 2.5867 
+[2022-08-12 21:39:59,714 INFO] Epoch [23/40], step [33300/56240], lr 0.000018, 72.68 s
+[2022-08-12 21:39:59,716 INFO]   loss      : 2.5880 
+[2022-08-12 21:41:13,491 INFO] Epoch [23/40], step [33400/56240], lr 0.000018, 73.77 s
+[2022-08-12 21:41:13,492 INFO]   loss      : 2.5879 
+[2022-08-12 21:42:26,340 INFO] Epoch [23/40], step [33500/56240], lr 0.000018, 72.85 s
+[2022-08-12 21:42:26,342 INFO]   loss      : 2.5868 
+[2022-08-12 21:43:39,768 INFO] Epoch [23/40], step [33600/56240], lr 0.000018, 73.43 s
+[2022-08-12 21:43:39,770 INFO]   loss      : 2.5862 
+[2022-08-12 21:44:52,828 INFO] Epoch [23/40], step [33700/56240], lr 0.000018, 73.06 s
+[2022-08-12 21:44:52,828 INFO]   loss      : 2.5859 
+[2022-08-12 21:46:11,015 INFO] Epoch [24/40], step [33800/56240], lr 0.000018, 45.17 s
+[2022-08-12 21:46:11,016 INFO]   loss      : 2.6061 
+[2022-08-12 21:47:25,172 INFO] Epoch [24/40], step [33900/56240], lr 0.000018, 74.16 s
+[2022-08-12 21:47:25,174 INFO]   loss      : 2.5685 
+[2022-08-12 21:48:38,152 INFO] Epoch [24/40], step [34000/56240], lr 0.000018, 72.98 s
+[2022-08-12 21:48:38,155 INFO]   loss      : 2.5571 
+[2022-08-12 21:48:38,155 INFO] ========== Evaluation at global step 34000 ==========
+[2022-08-12 21:51:59,365 INFO] Eval: 100/156 steps finished
+[2022-08-12 21:53:52,384 INFO] Inference time = 1.92s, [0.3814 ms / sample] 
+[2022-08-12 21:53:52,384 INFO] Eval loss: 2.909117355468167
+[2022-08-12 21:53:52,384 INFO] Best score: -2.8275355153782353
+[2022-08-12 21:53:52,384 INFO] Learning rate: 0.00001758
+[2022-08-12 21:55:07,251 INFO] Epoch [24/40], step [34100/56240], lr 0.000017, 389.10 s
+[2022-08-12 21:55:07,252 INFO]   loss      : 2.5691 
+[2022-08-12 21:56:20,392 INFO] Epoch [24/40], step [34200/56240], lr 0.000017, 73.14 s
+[2022-08-12 21:56:20,394 INFO]   loss      : 2.5731 
+[2022-08-12 21:57:33,184 INFO] Epoch [24/40], step [34300/56240], lr 0.000017, 72.79 s
+[2022-08-12 21:57:33,185 INFO]   loss      : 2.5744 
+[2022-08-12 21:58:46,867 INFO] Epoch [24/40], step [34400/56240], lr 0.000017, 73.68 s
+[2022-08-12 21:58:46,869 INFO]   loss      : 2.5744 
+[2022-08-12 21:59:59,956 INFO] Epoch [24/40], step [34500/56240], lr 0.000017, 73.09 s
+[2022-08-12 21:59:59,957 INFO]   loss      : 2.5742 
+[2022-08-12 22:01:13,532 INFO] Epoch [24/40], step [34600/56240], lr 0.000017, 73.58 s
+[2022-08-12 22:01:13,534 INFO]   loss      : 2.5761 
+[2022-08-12 22:02:26,667 INFO] Epoch [24/40], step [34700/56240], lr 0.000017, 73.13 s
+[2022-08-12 22:02:26,668 INFO]   loss      : 2.5769 
+[2022-08-12 22:03:39,438 INFO] Epoch [24/40], step [34800/56240], lr 0.000017, 72.77 s
+[2022-08-12 22:03:39,441 INFO]   loss      : 2.5772 
+[2022-08-12 22:04:52,804 INFO] Epoch [24/40], step [34900/56240], lr 0.000017, 73.36 s
+[2022-08-12 22:04:52,807 INFO]   loss      : 2.5762 
+[2022-08-12 22:06:05,787 INFO] Epoch [24/40], step [35000/56240], lr 0.000017, 72.98 s
+[2022-08-12 22:06:05,788 INFO]   loss      : 2.5758 
+[2022-08-12 22:06:05,789 INFO] ========== Evaluation at global step 35000 ==========
+[2022-08-12 22:09:27,146 INFO] Eval: 100/156 steps finished
+[2022-08-12 22:11:20,162 INFO] Inference time = 1.92s, [0.3823 ms / sample] 
+[2022-08-12 22:11:20,162 INFO] Eval loss: 2.9137695594957678
+[2022-08-12 22:11:20,162 INFO] Best score: -2.8275355153782353
+[2022-08-12 22:11:20,162 INFO] Learning rate: 0.00001679
+[2022-08-12 22:12:35,383 INFO] Epoch [24/40], step [35100/56240], lr 0.000017, 389.59 s
+[2022-08-12 22:12:35,385 INFO]   loss      : 2.5758 
+[2022-08-12 22:13:52,972 INFO] Epoch [25/40], step [35200/56240], lr 0.000017, 40.33 s
+[2022-08-12 22:13:52,974 INFO]   loss      : 2.6036 
+[2022-08-12 22:15:06,015 INFO] Epoch [25/40], step [35300/56240], lr 0.000017, 73.04 s
+[2022-08-12 22:15:06,017 INFO]   loss      : 2.5588 
+[2022-08-12 22:16:19,898 INFO] Epoch [25/40], step [35400/56240], lr 0.000016, 73.88 s
+[2022-08-12 22:16:19,901 INFO]   loss      : 2.5492 
+[2022-08-12 22:17:32,457 INFO] Epoch [25/40], step [35500/56240], lr 0.000016, 72.56 s
+[2022-08-12 22:17:32,460 INFO]   loss      : 2.5583 
+[2022-08-12 22:18:46,203 INFO] Epoch [25/40], step [35600/56240], lr 0.000016, 73.74 s
+[2022-08-12 22:18:46,205 INFO]   loss      : 2.5608 
+[2022-08-12 22:19:59,420 INFO] Epoch [25/40], step [35700/56240], lr 0.000016, 73.21 s
+[2022-08-12 22:19:59,421 INFO]   loss      : 2.5648 
+[2022-08-12 22:21:12,199 INFO] Epoch [25/40], step [35800/56240], lr 0.000016, 72.78 s
+[2022-08-12 22:21:12,201 INFO]   loss      : 2.5635 
+[2022-08-12 22:22:25,815 INFO] Epoch [25/40], step [35900/56240], lr 0.000016, 73.61 s
+[2022-08-12 22:22:25,818 INFO]   loss      : 2.5636 
+[2022-08-12 22:23:38,736 INFO] Epoch [25/40], step [36000/56240], lr 0.000016, 72.92 s
+[2022-08-12 22:23:38,738 INFO]   loss      : 2.5653 
+[2022-08-12 22:23:38,743 INFO] ========== Evaluation at global step 36000 ==========
+[2022-08-12 22:27:01,183 INFO] Eval: 100/156 steps finished
+[2022-08-12 22:28:54,504 INFO] Inference time = 1.93s, [0.3845 ms / sample] 
+[2022-08-12 22:28:54,505 INFO] Eval loss: 2.919418252957095
+[2022-08-12 22:28:54,505 INFO] Best score: -2.8275355153782353
+[2022-08-12 22:28:54,505 INFO] Learning rate: 0.00001600
+[2022-08-12 22:30:09,215 INFO] Epoch [25/40], step [36100/56240], lr 0.000016, 390.47 s
+[2022-08-12 22:30:09,217 INFO]   loss      : 2.5665 
+[2022-08-12 22:31:22,270 INFO] Epoch [25/40], step [36200/56240], lr 0.000016, 73.05 s
+[2022-08-12 22:31:22,272 INFO]   loss      : 2.5670 
+[2022-08-12 22:32:34,943 INFO] Epoch [25/40], step [36300/56240], lr 0.000016, 72.67 s
+[2022-08-12 22:32:34,944 INFO]   loss      : 2.5659 
+[2022-08-12 22:33:48,639 INFO] Epoch [25/40], step [36400/56240], lr 0.000016, 73.70 s
+[2022-08-12 22:33:48,640 INFO]   loss      : 2.5657 
+[2022-08-12 22:35:01,551 INFO] Epoch [25/40], step [36500/56240], lr 0.000016, 72.91 s
+[2022-08-12 22:35:01,552 INFO]   loss      : 2.5654 
+[2022-08-12 22:36:19,336 INFO] Epoch [26/40], step [36600/56240], lr 0.000016, 36.53 s
+[2022-08-12 22:36:19,339 INFO]   loss      : 2.5909 
+[2022-08-12 22:37:33,803 INFO] Epoch [26/40], step [36700/56240], lr 0.000015, 74.46 s
+[2022-08-12 22:37:33,804 INFO]   loss      : 2.5498 
+[2022-08-12 22:38:46,739 INFO] Epoch [26/40], step [36800/56240], lr 0.000015, 72.93 s
+[2022-08-12 22:38:46,741 INFO]   loss      : 2.5402 
+[2022-08-12 22:40:00,537 INFO] Epoch [26/40], step [36900/56240], lr 0.000015, 73.79 s
+[2022-08-12 22:40:00,537 INFO]   loss      : 2.5469 
+[2022-08-12 22:41:13,942 INFO] Epoch [26/40], step [37000/56240], lr 0.000015, 73.41 s
+[2022-08-12 22:41:13,944 INFO]   loss      : 2.5499 
+[2022-08-12 22:41:13,944 INFO] ========== Evaluation at global step 37000 ==========
+[2022-08-12 22:44:35,648 INFO] Eval: 100/156 steps finished
+[2022-08-12 22:46:29,029 INFO] Inference time = 1.93s, [0.3841 ms / sample] 
+[2022-08-12 22:46:29,029 INFO] Eval loss: 2.925264789799976
+[2022-08-12 22:46:29,029 INFO] Best score: -2.8275355153782353
+[2022-08-12 22:46:29,029 INFO] Learning rate: 0.00001521
+[2022-08-12 22:47:43,899 INFO] Epoch [26/40], step [37100/56240], lr 0.000015, 389.95 s
+[2022-08-12 22:47:43,901 INFO]   loss      : 2.5553 
+[2022-08-12 22:48:57,196 INFO] Epoch [26/40], step [37200/56240], lr 0.000015, 73.29 s
+[2022-08-12 22:48:57,198 INFO]   loss      : 2.5535 
+[2022-08-12 22:50:09,987 INFO] Epoch [26/40], step [37300/56240], lr 0.000015, 72.79 s
+[2022-08-12 22:50:09,988 INFO]   loss      : 2.5536 
+[2022-08-12 22:51:23,809 INFO] Epoch [26/40], step [37400/56240], lr 0.000015, 73.82 s
+[2022-08-12 22:51:23,812 INFO]   loss      : 2.5552 
+[2022-08-12 22:52:36,608 INFO] Epoch [26/40], step [37500/56240], lr 0.000015, 72.79 s
+[2022-08-12 22:52:36,610 INFO]   loss      : 2.5573 
+[2022-08-12 22:53:49,960 INFO] Epoch [26/40], step [37600/56240], lr 0.000015, 73.35 s
+[2022-08-12 22:53:49,962 INFO]   loss      : 2.5574 
+[2022-08-12 22:55:03,211 INFO] Epoch [26/40], step [37700/56240], lr 0.000015, 73.25 s
+[2022-08-12 22:55:03,213 INFO]   loss      : 2.5560 
+[2022-08-12 22:56:15,853 INFO] Epoch [26/40], step [37800/56240], lr 0.000015, 72.64 s
+[2022-08-12 22:56:15,856 INFO]   loss      : 2.5562 
+[2022-08-12 22:57:29,612 INFO] Epoch [26/40], step [37900/56240], lr 0.000014, 73.76 s
+[2022-08-12 22:57:29,613 INFO]   loss      : 2.5554 
+[2022-08-12 22:58:47,067 INFO] Epoch [27/40], step [38000/56240], lr 0.000014, 31.39 s
+[2022-08-12 22:58:47,069 INFO]   loss      : 2.5813 
+[2022-08-12 22:58:47,069 INFO] ========== Evaluation at global step 38000 ==========
+[2022-08-12 23:02:09,876 INFO] Eval: 100/156 steps finished
+[2022-08-12 23:04:03,707 INFO] Inference time = 1.91s, [0.3796 ms / sample] 
+[2022-08-12 23:04:03,707 INFO] Eval loss: 2.9327068419972804
+[2022-08-12 23:04:03,707 INFO] Best score: -2.8275355153782353
+[2022-08-12 23:04:03,707 INFO] Learning rate: 0.00001442
+[2022-08-12 23:05:18,114 INFO] Epoch [27/40], step [38100/56240], lr 0.000014, 391.04 s
+[2022-08-12 23:05:18,114 INFO]   loss      : 2.5371 
+[2022-08-12 23:06:31,366 INFO] Epoch [27/40], step [38200/56240], lr 0.000014, 73.25 s
+[2022-08-12 23:06:31,367 INFO]   loss      : 2.5319 
+[2022-08-12 23:07:44,016 INFO] Epoch [27/40], step [38300/56240], lr 0.000014, 72.65 s
+[2022-08-12 23:07:44,017 INFO]   loss      : 2.5367 
+[2022-08-12 23:08:57,555 INFO] Epoch [27/40], step [38400/56240], lr 0.000014, 73.53 s
+[2022-08-12 23:08:57,558 INFO]   loss      : 2.5401 
+[2022-08-12 23:10:10,355 INFO] Epoch [27/40], step [38500/56240], lr 0.000014, 72.80 s
+[2022-08-12 23:10:10,357 INFO]   loss      : 2.5457 
+[2022-08-12 23:11:23,275 INFO] Epoch [27/40], step [38600/56240], lr 0.000014, 72.92 s
+[2022-08-12 23:11:23,276 INFO]   loss      : 2.5441 
+[2022-08-12 23:12:36,649 INFO] Epoch [27/40], step [38700/56240], lr 0.000014, 73.37 s
+[2022-08-12 23:12:36,651 INFO]   loss      : 2.5442 
+[2022-08-12 23:13:49,267 INFO] Epoch [27/40], step [38800/56240], lr 0.000014, 72.62 s
+[2022-08-12 23:13:49,268 INFO]   loss      : 2.5451 
+[2022-08-12 23:15:02,931 INFO] Epoch [27/40], step [38900/56240], lr 0.000014, 73.66 s
+[2022-08-12 23:15:02,932 INFO]   loss      : 2.5478 
+[2022-08-12 23:16:15,863 INFO] Epoch [27/40], step [39000/56240], lr 0.000014, 72.93 s
+[2022-08-12 23:16:15,866 INFO]   loss      : 2.5474 
+[2022-08-12 23:16:15,866 INFO] ========== Evaluation at global step 39000 ==========
+[2022-08-12 23:19:35,668 INFO] Eval: 100/156 steps finished
+[2022-08-12 23:21:27,381 INFO] Inference time = 1.92s, [0.3818 ms / sample] 
+[2022-08-12 23:21:27,381 INFO] Eval loss: 2.94065495053674
+[2022-08-12 23:21:27,381 INFO] Best score: -2.8275355153782353
+[2022-08-12 23:21:27,382 INFO] Learning rate: 0.00001362
+[2022-08-12 23:22:42,007 INFO] Epoch [27/40], step [39100/56240], lr 0.000014, 386.14 s
+[2022-08-12 23:22:42,009 INFO]   loss      : 2.5466 
+[2022-08-12 23:23:55,143 INFO] Epoch [27/40], step [39200/56240], lr 0.000013, 73.13 s
+[2022-08-12 23:23:55,145 INFO]   loss      : 2.5464 
+[2022-08-12 23:25:07,779 INFO] Epoch [27/40], step [39300/56240], lr 0.000013, 72.63 s
+[2022-08-12 23:25:07,780 INFO]   loss      : 2.5465 
+[2022-08-12 23:26:26,276 INFO] Epoch [28/40], step [39400/56240], lr 0.000013, 27.22 s
+[2022-08-12 23:26:26,279 INFO]   loss      : 2.5680 
+[2022-08-12 23:27:39,642 INFO] Epoch [28/40], step [39500/56240], lr 0.000013, 73.36 s
+[2022-08-12 23:27:39,643 INFO]   loss      : 2.5300 
+[2022-08-12 23:28:53,215 INFO] Epoch [28/40], step [39600/56240], lr 0.000013, 73.57 s
+[2022-08-12 23:28:53,217 INFO]   loss      : 2.5203 
+[2022-08-12 23:30:06,030 INFO] Epoch [28/40], step [39700/56240], lr 0.000013, 72.81 s
+[2022-08-12 23:30:06,031 INFO]   loss      : 2.5283 
+[2022-08-12 23:31:18,460 INFO] Epoch [28/40], step [39800/56240], lr 0.000013, 72.43 s
+[2022-08-12 23:31:18,463 INFO]   loss      : 2.5301 
+[2022-08-12 23:32:32,165 INFO] Epoch [28/40], step [39900/56240], lr 0.000013, 73.70 s
+[2022-08-12 23:32:32,165 INFO]   loss      : 2.5365 
+[2022-08-12 23:33:45,104 INFO] Epoch [28/40], step [40000/56240], lr 0.000013, 72.94 s
+[2022-08-12 23:33:45,105 INFO]   loss      : 2.5345 
+[2022-08-12 23:33:45,105 INFO] ========== Evaluation at global step 40000 ==========
+[2022-08-12 23:37:04,943 INFO] Eval: 100/156 steps finished
+[2022-08-12 23:38:57,397 INFO] Inference time = 1.92s, [0.3828 ms / sample] 
+[2022-08-12 23:38:57,397 INFO] Eval loss: 2.9466367861267866
+[2022-08-12 23:38:57,397 INFO] Best score: -2.8275355153782353
+[2022-08-12 23:38:57,397 INFO] Learning rate: 0.00001283
+[2022-08-12 23:40:12,124 INFO] Epoch [28/40], step [40100/56240], lr 0.000013, 387.02 s
+[2022-08-12 23:40:12,126 INFO]   loss      : 2.5345 
+[2022-08-12 23:41:25,444 INFO] Epoch [28/40], step [40200/56240], lr 0.000013, 73.32 s
+[2022-08-12 23:41:25,445 INFO]   loss      : 2.5358 
+[2022-08-12 23:42:38,260 INFO] Epoch [28/40], step [40300/56240], lr 0.000013, 72.81 s
+[2022-08-12 23:42:38,262 INFO]   loss      : 2.5383 
+[2022-08-12 23:43:52,068 INFO] Epoch [28/40], step [40400/56240], lr 0.000013, 73.81 s
+[2022-08-12 23:43:52,071 INFO]   loss      : 2.5385 
+[2022-08-12 23:45:05,087 INFO] Epoch [28/40], step [40500/56240], lr 0.000012, 73.02 s
+[2022-08-12 23:45:05,087 INFO]   loss      : 2.5377 
+[2022-08-12 23:46:18,135 INFO] Epoch [28/40], step [40600/56240], lr 0.000012, 73.05 s
+[2022-08-12 23:46:18,137 INFO]   loss      : 2.5366 
+[2022-08-12 23:47:31,448 INFO] Epoch [28/40], step [40700/56240], lr 0.000012, 73.31 s
+[2022-08-12 23:47:31,450 INFO]   loss      : 2.5374 
+[2022-08-12 23:48:48,945 INFO] Epoch [29/40], step [40800/56240], lr 0.000012, 22.69 s
+[2022-08-12 23:48:48,945 INFO]   loss      : 2.5583 
+[2022-08-12 23:50:02,745 INFO] Epoch [29/40], step [40900/56240], lr 0.000012, 73.80 s
+[2022-08-12 23:50:02,747 INFO]   loss      : 2.5228 
+[2022-08-12 23:51:16,300 INFO] Epoch [29/40], step [41000/56240], lr 0.000012, 73.55 s
+[2022-08-12 23:51:16,301 INFO]   loss      : 2.5120 
+[2022-08-12 23:51:16,301 INFO] ========== Evaluation at global step 41000 ==========
+[2022-08-12 23:54:39,369 INFO] Eval: 100/156 steps finished
+[2022-08-12 23:56:33,227 INFO] Inference time = 1.92s, [0.3822 ms / sample] 
+[2022-08-12 23:56:33,228 INFO] Eval loss: 2.9518110691362125
+[2022-08-12 23:56:33,228 INFO] Best score: -2.8275355153782353
+[2022-08-12 23:56:33,228 INFO] Learning rate: 0.00001204
+[2022-08-12 23:57:48,062 INFO] Epoch [29/40], step [41100/56240], lr 0.000012, 391.76 s
+[2022-08-12 23:57:48,065 INFO]   loss      : 2.5180 
+[2022-08-12 23:59:01,188 INFO] Epoch [29/40], step [41200/56240], lr 0.000012, 73.12 s
+[2022-08-12 23:59:01,188 INFO]   loss      : 2.5216 
+[2022-08-13 00:00:13,861 INFO] Epoch [29/40], step [41300/56240], lr 0.000012, 72.67 s
+[2022-08-13 00:00:13,863 INFO]   loss      : 2.5273 
+[2022-08-13 00:01:27,736 INFO] Epoch [29/40], step [41400/56240], lr 0.000012, 73.87 s
+[2022-08-13 00:01:27,738 INFO]   loss      : 2.5266 
+[2022-08-13 00:02:40,501 INFO] Epoch [29/40], step [41500/56240], lr 0.000012, 72.76 s
+[2022-08-13 00:02:40,504 INFO]   loss      : 2.5262 
+[2022-08-13 00:03:53,780 INFO] Epoch [29/40], step [41600/56240], lr 0.000012, 73.28 s
+[2022-08-13 00:03:53,782 INFO]   loss      : 2.5274 
+[2022-08-13 00:05:06,992 INFO] Epoch [29/40], step [41700/56240], lr 0.000011, 73.21 s
+[2022-08-13 00:05:06,995 INFO]   loss      : 2.5293 
+[2022-08-13 00:06:19,588 INFO] Epoch [29/40], step [41800/56240], lr 0.000011, 72.59 s
+[2022-08-13 00:06:19,591 INFO]   loss      : 2.5296 
+[2022-08-13 00:07:33,292 INFO] Epoch [29/40], step [41900/56240], lr 0.000011, 73.70 s
+[2022-08-13 00:07:33,293 INFO]   loss      : 2.5294 
+[2022-08-13 00:08:46,248 INFO] Epoch [29/40], step [42000/56240], lr 0.000011, 72.95 s
+[2022-08-13 00:08:46,251 INFO]   loss      : 2.5284 
+[2022-08-13 00:08:46,251 INFO] ========== Evaluation at global step 42000 ==========
+[2022-08-13 00:12:06,878 INFO] Eval: 100/156 steps finished
+[2022-08-13 00:13:59,366 INFO] Inference time = 1.93s, [0.3840 ms / sample] 
+[2022-08-13 00:13:59,366 INFO] Eval loss: 2.9576208075140693
+[2022-08-13 00:13:59,366 INFO] Best score: -2.8275355153782353
+[2022-08-13 00:13:59,367 INFO] Learning rate: 0.00001125
+[2022-08-13 00:15:14,168 INFO] Epoch [29/40], step [42100/56240], lr 0.000011, 387.92 s
+[2022-08-13 00:15:14,170 INFO]   loss      : 2.5284 
+[2022-08-13 00:16:31,767 INFO] Epoch [30/40], step [42200/56240], lr 0.000011, 18.44 s
+[2022-08-13 00:16:31,768 INFO]   loss      : 2.5289 
+[2022-08-13 00:17:44,915 INFO] Epoch [30/40], step [42300/56240], lr 0.000011, 73.14 s
+[2022-08-13 00:17:44,916 INFO]   loss      : 2.5139 
+[2022-08-13 00:18:58,703 INFO] Epoch [30/40], step [42400/56240], lr 0.000011, 73.79 s
+[2022-08-13 00:18:58,705 INFO]   loss      : 2.5044 
+[2022-08-13 00:20:11,491 INFO] Epoch [30/40], step [42500/56240], lr 0.000011, 72.79 s
+[2022-08-13 00:20:11,492 INFO]   loss      : 2.5106 
+[2022-08-13 00:21:25,263 INFO] Epoch [30/40], step [42600/56240], lr 0.000011, 73.77 s
+[2022-08-13 00:21:25,265 INFO]   loss      : 2.5153 
+[2022-08-13 00:22:38,298 INFO] Epoch [30/40], step [42700/56240], lr 0.000011, 73.03 s
+[2022-08-13 00:22:38,298 INFO]   loss      : 2.5187 
+[2022-08-13 00:23:51,035 INFO] Epoch [30/40], step [42800/56240], lr 0.000011, 72.73 s
+[2022-08-13 00:23:51,037 INFO]   loss      : 2.5182 
+[2022-08-13 00:25:04,623 INFO] Epoch [30/40], step [42900/56240], lr 0.000011, 73.59 s
+[2022-08-13 00:25:04,625 INFO]   loss      : 2.5180 
+[2022-08-13 00:26:17,435 INFO] Epoch [30/40], step [43000/56240], lr 0.000010, 72.81 s
+[2022-08-13 00:26:17,436 INFO]   loss      : 2.5195 
+[2022-08-13 00:26:17,436 INFO] ========== Evaluation at global step 43000 ==========
+[2022-08-13 00:29:39,797 INFO] Eval: 100/156 steps finished
+[2022-08-13 00:31:33,139 INFO] Inference time = 1.92s, [0.3812 ms / sample] 
+[2022-08-13 00:31:33,140 INFO] Eval loss: 2.9691874707580372
+[2022-08-13 00:31:33,140 INFO] Best score: -2.8275355153782353
+[2022-08-13 00:31:33,140 INFO] Learning rate: 0.00001046
+[2022-08-13 00:32:48,380 INFO] Epoch [30/40], step [43100/56240], lr 0.000010, 390.94 s
+[2022-08-13 00:32:48,383 INFO]   loss      : 2.5205 
+[2022-08-13 00:34:01,375 INFO] Epoch [30/40], step [43200/56240], lr 0.000010, 72.99 s
+[2022-08-13 00:34:01,378 INFO]   loss      : 2.5215 
+[2022-08-13 00:35:13,943 INFO] Epoch [30/40], step [43300/56240], lr 0.000010, 72.56 s
+[2022-08-13 00:35:13,945 INFO]   loss      : 2.5214 
+[2022-08-13 00:36:28,051 INFO] Epoch [30/40], step [43400/56240], lr 0.000010, 74.11 s
+[2022-08-13 00:36:28,053 INFO]   loss      : 2.5199 
+[2022-08-13 00:37:40,987 INFO] Epoch [30/40], step [43500/56240], lr 0.000010, 72.93 s
+[2022-08-13 00:37:40,989 INFO]   loss      : 2.5206 
+[2022-08-13 00:38:59,519 INFO] Epoch [31/40], step [43600/56240], lr 0.000010, 14.07 s
+[2022-08-13 00:38:59,521 INFO]   loss      : 2.5358 
+[2022-08-13 00:40:12,922 INFO] Epoch [31/40], step [43700/56240], lr 0.000010, 73.40 s
+[2022-08-13 00:40:12,923 INFO]   loss      : 2.5086 
+[2022-08-13 00:41:25,910 INFO] Epoch [31/40], step [43800/56240], lr 0.000010, 72.99 s
+[2022-08-13 00:41:25,911 INFO]   loss      : 2.5001 
+[2022-08-13 00:42:38,522 INFO] Epoch [31/40], step [43900/56240], lr 0.000010, 72.61 s
+[2022-08-13 00:42:38,525 INFO]   loss      : 2.5016 
+[2022-08-13 00:43:51,170 INFO] Epoch [31/40], step [44000/56240], lr 0.000010, 72.64 s
+[2022-08-13 00:43:51,170 INFO]   loss      : 2.5087 
+[2022-08-13 00:43:51,177 INFO] ========== Evaluation at global step 44000 ==========
+[2022-08-13 00:47:11,578 INFO] Eval: 100/156 steps finished
+[2022-08-13 00:49:04,017 INFO] Inference time = 1.92s, [0.3831 ms / sample] 
+[2022-08-13 00:49:04,017 INFO] Eval loss: 2.9693786399379656
+[2022-08-13 00:49:04,017 INFO] Best score: -2.8275355153782353
+[2022-08-13 00:49:04,017 INFO] Learning rate: 0.00000967
+[2022-08-13 00:50:19,015 INFO] Epoch [31/40], step [44100/56240], lr 0.000010, 387.84 s
+[2022-08-13 00:50:19,017 INFO]   loss      : 2.5110 
+[2022-08-13 00:51:31,914 INFO] Epoch [31/40], step [44200/56240], lr 0.000010, 72.90 s
+[2022-08-13 00:51:31,917 INFO]   loss      : 2.5103 
+[2022-08-13 00:52:44,496 INFO] Epoch [31/40], step [44300/56240], lr 0.000009, 72.58 s
+[2022-08-13 00:52:44,499 INFO]   loss      : 2.5107 
+[2022-08-13 00:53:58,447 INFO] Epoch [31/40], step [44400/56240], lr 0.000009, 73.95 s
+[2022-08-13 00:53:58,448 INFO]   loss      : 2.5115 
+[2022-08-13 00:55:11,339 INFO] Epoch [31/40], step [44500/56240], lr 0.000009, 72.89 s
+[2022-08-13 00:55:11,341 INFO]   loss      : 2.5124 
+[2022-08-13 00:56:25,028 INFO] Epoch [31/40], step [44600/56240], lr 0.000009, 73.69 s
+[2022-08-13 00:56:25,029 INFO]   loss      : 2.5138 
+[2022-08-13 00:57:38,044 INFO] Epoch [31/40], step [44700/56240], lr 0.000009, 73.01 s
+[2022-08-13 00:57:38,046 INFO]   loss      : 2.5137 
+[2022-08-13 00:58:50,717 INFO] Epoch [31/40], step [44800/56240], lr 0.000009, 72.67 s
+[2022-08-13 00:58:50,719 INFO]   loss      : 2.5127 
+[2022-08-13 01:00:04,255 INFO] Epoch [31/40], step [44900/56240], lr 0.000009, 73.53 s
+[2022-08-13 01:00:04,256 INFO]   loss      : 2.5130 
+[2022-08-13 01:01:21,615 INFO] Epoch [32/40], step [45000/56240], lr 0.000009, 9.53 s
+[2022-08-13 01:01:21,616 INFO]   loss      : 2.4982 
+[2022-08-13 01:01:21,616 INFO] ========== Evaluation at global step 45000 ==========
+[2022-08-13 01:04:43,279 INFO] Eval: 100/156 steps finished
+[2022-08-13 01:06:36,422 INFO] Inference time = 1.91s, [0.3808 ms / sample] 
+[2022-08-13 01:06:36,422 INFO] Eval loss: 2.9811621274158453
+[2022-08-13 01:06:36,422 INFO] Best score: -2.8275355153782353
+[2022-08-13 01:06:36,422 INFO] Learning rate: 0.00000888
+[2022-08-13 01:07:51,388 INFO] Epoch [32/40], step [45100/56240], lr 0.000009, 389.77 s
+[2022-08-13 01:07:51,389 INFO]   loss      : 2.5028 
+[2022-08-13 01:09:04,604 INFO] Epoch [32/40], step [45200/56240], lr 0.000009, 73.21 s
+[2022-08-13 01:09:04,606 INFO]   loss      : 2.4917 
+[2022-08-13 01:10:17,306 INFO] Epoch [32/40], step [45300/56240], lr 0.000009, 72.70 s
+[2022-08-13 01:10:17,309 INFO]   loss      : 2.4934 
+[2022-08-13 01:11:31,253 INFO] Epoch [32/40], step [45400/56240], lr 0.000009, 73.94 s
+[2022-08-13 01:11:31,255 INFO]   loss      : 2.5017 
+[2022-08-13 01:12:44,144 INFO] Epoch [32/40], step [45500/56240], lr 0.000008, 72.89 s
+[2022-08-13 01:12:44,147 INFO]   loss      : 2.5031 
+[2022-08-13 01:13:57,287 INFO] Epoch [32/40], step [45600/56240], lr 0.000008, 73.14 s
+[2022-08-13 01:13:57,288 INFO]   loss      : 2.5046 
+[2022-08-13 01:15:10,583 INFO] Epoch [32/40], step [45700/56240], lr 0.000008, 73.30 s
+[2022-08-13 01:15:10,584 INFO]   loss      : 2.5035 
+[2022-08-13 01:16:23,301 INFO] Epoch [32/40], step [45800/56240], lr 0.000008, 72.72 s
+[2022-08-13 01:16:23,304 INFO]   loss      : 2.5046 
+[2022-08-13 01:17:37,205 INFO] Epoch [32/40], step [45900/56240], lr 0.000008, 73.90 s
+[2022-08-13 01:17:37,208 INFO]   loss      : 2.5053 
+[2022-08-13 01:18:50,260 INFO] Epoch [32/40], step [46000/56240], lr 0.000008, 73.05 s
+[2022-08-13 01:18:50,262 INFO]   loss      : 2.5065 
+[2022-08-13 01:18:50,263 INFO] ========== Evaluation at global step 46000 ==========
+[2022-08-13 01:22:11,493 INFO] Eval: 100/156 steps finished
+[2022-08-13 01:24:04,527 INFO] Inference time = 1.92s, [0.3821 ms / sample] 
+[2022-08-13 01:24:04,528 INFO] Eval loss: 2.9831650651943913
+[2022-08-13 01:24:04,528 INFO] Best score: -2.8275355153782353
+[2022-08-13 01:24:04,528 INFO] Learning rate: 0.00000809
+[2022-08-13 01:25:19,755 INFO] Epoch [32/40], step [46100/56240], lr 0.000008, 389.49 s
+[2022-08-13 01:25:19,756 INFO]   loss      : 2.5063 
+[2022-08-13 01:26:32,854 INFO] Epoch [32/40], step [46200/56240], lr 0.000008, 73.10 s
+[2022-08-13 01:26:32,857 INFO]   loss      : 2.5057 
+[2022-08-13 01:27:45,659 INFO] Epoch [32/40], step [46300/56240], lr 0.000008, 72.80 s
+[2022-08-13 01:27:45,661 INFO]   loss      : 2.5061 
+[2022-08-13 01:29:03,155 INFO] Epoch [33/40], step [46400/56240], lr 0.000008, 4.22 s
+[2022-08-13 01:29:03,157 INFO]   loss      : 2.5079 
+[2022-08-13 01:30:17,759 INFO] Epoch [33/40], step [46500/56240], lr 0.000008, 74.60 s
+[2022-08-13 01:30:17,761 INFO]   loss      : 2.4991 
+[2022-08-13 01:31:31,638 INFO] Epoch [33/40], step [46600/56240], lr 0.000008, 73.88 s
+[2022-08-13 01:31:31,639 INFO]   loss      : 2.4850 
+[2022-08-13 01:32:44,191 INFO] Epoch [33/40], step [46700/56240], lr 0.000008, 72.55 s
+[2022-08-13 01:32:44,191 INFO]   loss      : 2.4855 
+[2022-08-13 01:33:56,995 INFO] Epoch [33/40], step [46800/56240], lr 0.000007, 72.80 s
+[2022-08-13 01:33:56,996 INFO]   loss      : 2.4948 
+[2022-08-13 01:35:10,675 INFO] Epoch [33/40], step [46900/56240], lr 0.000007, 73.68 s
+[2022-08-13 01:35:10,677 INFO]   loss      : 2.4963 
+[2022-08-13 01:36:23,160 INFO] Epoch [33/40], step [47000/56240], lr 0.000007, 72.48 s
+[2022-08-13 01:36:23,162 INFO]   loss      : 2.4985 
+[2022-08-13 01:36:23,163 INFO] ========== Evaluation at global step 47000 ==========
+[2022-08-13 01:39:46,268 INFO] Eval: 100/156 steps finished
+[2022-08-13 01:41:40,157 INFO] Inference time = 1.93s, [0.3842 ms / sample] 
+[2022-08-13 01:41:40,157 INFO] Eval loss: 2.991592662349628
+[2022-08-13 01:41:40,157 INFO] Best score: -2.8275355153782353
+[2022-08-13 01:41:40,157 INFO] Learning rate: 0.00000730
+[2022-08-13 01:42:55,335 INFO] Epoch [33/40], step [47100/56240], lr 0.000007, 392.17 s
+[2022-08-13 01:42:55,337 INFO]   loss      : 2.4974 
+[2022-08-13 01:44:08,328 INFO] Epoch [33/40], step [47200/56240], lr 0.000007, 72.99 s
+[2022-08-13 01:44:08,328 INFO]   loss      : 2.4973 
+[2022-08-13 01:45:20,835 INFO] Epoch [33/40], step [47300/56240], lr 0.000007, 72.51 s
+[2022-08-13 01:45:20,836 INFO]   loss      : 2.4986 
+[2022-08-13 01:46:34,727 INFO] Epoch [33/40], step [47400/56240], lr 0.000007, 73.89 s
+[2022-08-13 01:46:34,728 INFO]   loss      : 2.4996 
+[2022-08-13 01:47:47,349 INFO] Epoch [33/40], step [47500/56240], lr 0.000007, 72.62 s
+[2022-08-13 01:47:47,351 INFO]   loss      : 2.5000 
+[2022-08-13 01:49:00,895 INFO] Epoch [33/40], step [47600/56240], lr 0.000007, 73.54 s
+[2022-08-13 01:49:00,895 INFO]   loss      : 2.4992 
+[2022-08-13 01:50:13,922 INFO] Epoch [33/40], step [47700/56240], lr 0.000007, 73.03 s
+[2022-08-13 01:50:13,923 INFO]   loss      : 2.4998 
+[2022-08-13 01:51:26,503 INFO] Epoch [33/40], step [47800/56240], lr 0.000007, 72.58 s
+[2022-08-13 01:51:26,505 INFO]   loss      : 2.4985 
+[2022-08-13 01:52:45,518 INFO] Epoch [34/40], step [47900/56240], lr 0.000007, 75.14 s
+[2022-08-13 01:52:45,519 INFO]   loss      : 2.4905 
+[2022-08-13 01:53:59,406 INFO] Epoch [34/40], step [48000/56240], lr 0.000007, 73.89 s
+[2022-08-13 01:53:59,408 INFO]   loss      : 2.4821 
+[2022-08-13 01:53:59,409 INFO] ========== Evaluation at global step 48000 ==========
+[2022-08-13 01:57:21,469 INFO] Eval: 100/156 steps finished
+[2022-08-13 01:59:14,571 INFO] Inference time = 1.92s, [0.3819 ms / sample] 
+[2022-08-13 01:59:14,572 INFO] Eval loss: 2.9877132777195827
+[2022-08-13 01:59:14,572 INFO] Best score: -2.8275355153782353
+[2022-08-13 01:59:14,572 INFO] Learning rate: 0.00000651
+[2022-08-13 02:00:29,543 INFO] Epoch [34/40], step [48100/56240], lr 0.000006, 390.13 s
+[2022-08-13 02:00:29,545 INFO]   loss      : 2.4786 
+[2022-08-13 02:01:42,632 INFO] Epoch [34/40], step [48200/56240], lr 0.000006, 73.09 s
+[2022-08-13 02:01:42,634 INFO]   loss      : 2.4882 
+[2022-08-13 02:02:55,383 INFO] Epoch [34/40], step [48300/56240], lr 0.000006, 72.75 s
+[2022-08-13 02:02:55,386 INFO]   loss      : 2.4899 
+[2022-08-13 02:04:09,204 INFO] Epoch [34/40], step [48400/56240], lr 0.000006, 73.82 s
+[2022-08-13 02:04:09,207 INFO]   loss      : 2.4926 
+[2022-08-13 02:05:22,287 INFO] Epoch [34/40], step [48500/56240], lr 0.000006, 73.08 s
+[2022-08-13 02:05:22,289 INFO]   loss      : 2.4908 
+[2022-08-13 02:06:35,979 INFO] Epoch [34/40], step [48600/56240], lr 0.000006, 73.69 s
+[2022-08-13 02:06:35,980 INFO]   loss      : 2.4917 
+[2022-08-13 02:07:48,980 INFO] Epoch [34/40], step [48700/56240], lr 0.000006, 73.00 s
+[2022-08-13 02:07:48,982 INFO]   loss      : 2.4925 
+[2022-08-13 02:09:01,684 INFO] Epoch [34/40], step [48800/56240], lr 0.000006, 72.70 s
+[2022-08-13 02:09:01,686 INFO]   loss      : 2.4936 
+[2022-08-13 02:10:15,428 INFO] Epoch [34/40], step [48900/56240], lr 0.000006, 73.74 s
+[2022-08-13 02:10:15,428 INFO]   loss      : 2.4940 
+[2022-08-13 02:11:28,395 INFO] Epoch [34/40], step [49000/56240], lr 0.000006, 72.97 s
+[2022-08-13 02:11:28,396 INFO]   loss      : 2.4935 
+[2022-08-13 02:11:28,397 INFO] ========== Evaluation at global step 49000 ==========
+[2022-08-13 02:14:50,519 INFO] Eval: 100/156 steps finished
+[2022-08-13 02:16:43,810 INFO] Inference time = 1.91s, [0.3804 ms / sample] 
+[2022-08-13 02:16:43,810 INFO] Eval loss: 2.994094522136032
+[2022-08-13 02:16:43,810 INFO] Best score: -2.8275355153782353
+[2022-08-13 02:16:43,810 INFO] Learning rate: 0.00000572
+[2022-08-13 02:17:58,804 INFO] Epoch [34/40], step [49100/56240], lr 0.000006, 390.41 s
+[2022-08-13 02:17:58,806 INFO]   loss      : 2.4937 
+[2022-08-13 02:19:12,079 INFO] Epoch [34/40], step [49200/56240], lr 0.000006, 73.27 s
+[2022-08-13 02:19:12,081 INFO]   loss      : 2.4928 
+[2022-08-13 02:20:28,991 INFO] Epoch [35/40], step [49300/56240], lr 0.000005, 68.71 s
+[2022-08-13 02:20:28,992 INFO]   loss      : 2.4854 
+[2022-08-13 02:21:42,879 INFO] Epoch [35/40], step [49400/56240], lr 0.000005, 73.89 s
+[2022-08-13 02:21:42,880 INFO]   loss      : 2.4763 
+[2022-08-13 02:22:55,627 INFO] Epoch [35/40], step [49500/56240], lr 0.000005, 72.75 s
+[2022-08-13 02:22:55,629 INFO]   loss      : 2.4731 
+[2022-08-13 02:24:09,247 INFO] Epoch [35/40], step [49600/56240], lr 0.000005, 73.62 s
+[2022-08-13 02:24:09,247 INFO]   loss      : 2.4827 
+[2022-08-13 02:25:22,186 INFO] Epoch [35/40], step [49700/56240], lr 0.000005, 72.94 s
+[2022-08-13 02:25:22,187 INFO]   loss      : 2.4840 
+[2022-08-13 02:26:34,784 INFO] Epoch [35/40], step [49800/56240], lr 0.000005, 72.59 s
+[2022-08-13 02:26:34,786 INFO]   loss      : 2.4872 
+[2022-08-13 02:27:48,543 INFO] Epoch [35/40], step [49900/56240], lr 0.000005, 73.76 s
+[2022-08-13 02:27:48,545 INFO]   loss      : 2.4851 
+[2022-08-13 02:29:01,356 INFO] Epoch [35/40], step [50000/56240], lr 0.000005, 72.81 s
+[2022-08-13 02:29:01,359 INFO]   loss      : 2.4860 
+[2022-08-13 02:29:01,359 INFO] ========== Evaluation at global step 50000 ==========
+[2022-08-13 02:32:22,109 INFO] Eval: 100/156 steps finished
+[2022-08-13 02:34:14,415 INFO] Inference time = 1.92s, [0.3815 ms / sample] 
+[2022-08-13 02:34:14,415 INFO] Eval loss: 2.9997083259995576
+[2022-08-13 02:34:14,415 INFO] Best score: -2.8275355153782353
+[2022-08-13 02:34:14,415 INFO] Learning rate: 0.00000493
+[2022-08-13 02:35:29,127 INFO] Epoch [35/40], step [50100/56240], lr 0.000005, 387.77 s
+[2022-08-13 02:35:29,128 INFO]   loss      : 2.4873 
+[2022-08-13 02:36:42,423 INFO] Epoch [35/40], step [50200/56240], lr 0.000005, 73.29 s
+[2022-08-13 02:36:42,425 INFO]   loss      : 2.4881 
+[2022-08-13 02:37:55,083 INFO] Epoch [35/40], step [50300/56240], lr 0.000005, 72.66 s
+[2022-08-13 02:37:55,084 INFO]   loss      : 2.4891 
+[2022-08-13 02:39:08,954 INFO] Epoch [35/40], step [50400/56240], lr 0.000005, 73.87 s
+[2022-08-13 02:39:08,955 INFO]   loss      : 2.4880 
+[2022-08-13 02:40:21,862 INFO] Epoch [35/40], step [50500/56240], lr 0.000005, 72.91 s
+[2022-08-13 02:40:21,862 INFO]   loss      : 2.4883 
+[2022-08-13 02:41:35,577 INFO] Epoch [35/40], step [50600/56240], lr 0.000004, 73.71 s
+[2022-08-13 02:41:35,580 INFO]   loss      : 2.4880 
+[2022-08-13 02:42:53,727 INFO] Epoch [36/40], step [50700/56240], lr 0.000004, 65.67 s
+[2022-08-13 02:42:53,729 INFO]   loss      : 2.4839 
+[2022-08-13 02:44:07,243 INFO] Epoch [36/40], step [50800/56240], lr 0.000004, 73.51 s
+[2022-08-13 02:44:07,245 INFO]   loss      : 2.4737 
+[2022-08-13 02:45:21,112 INFO] Epoch [36/40], step [50900/56240], lr 0.000004, 73.87 s
+[2022-08-13 02:45:21,114 INFO]   loss      : 2.4666 
+[2022-08-13 02:46:33,560 INFO] Epoch [36/40], step [51000/56240], lr 0.000004, 72.45 s
+[2022-08-13 02:46:33,562 INFO]   loss      : 2.4772 
+[2022-08-13 02:46:33,562 INFO] ========== Evaluation at global step 51000 ==========
+[2022-08-13 02:49:55,545 INFO] Eval: 100/156 steps finished
+[2022-08-13 02:51:48,875 INFO] Inference time = 1.92s, [0.3818 ms / sample] 
+[2022-08-13 02:51:48,876 INFO] Eval loss: 2.9995844758999577
+[2022-08-13 02:51:48,876 INFO] Best score: -2.8275355153782353
+[2022-08-13 02:51:48,876 INFO] Learning rate: 0.00000414
+[2022-08-13 02:53:03,712 INFO] Epoch [36/40], step [51100/56240], lr 0.000004, 390.15 s
+[2022-08-13 02:53:03,714 INFO]   loss      : 2.4800 
+[2022-08-13 02:54:16,834 INFO] Epoch [36/40], step [51200/56240], lr 0.000004, 73.12 s
+[2022-08-13 02:54:16,836 INFO]   loss      : 2.4819 
+[2022-08-13 02:55:29,444 INFO] Epoch [36/40], step [51300/56240], lr 0.000004, 72.61 s
+[2022-08-13 02:55:29,445 INFO]   loss      : 2.4815 
+[2022-08-13 02:56:43,486 INFO] Epoch [36/40], step [51400/56240], lr 0.000004, 74.04 s
+[2022-08-13 02:56:43,486 INFO]   loss      : 2.4819 
+[2022-08-13 02:57:56,467 INFO] Epoch [36/40], step [51500/56240], lr 0.000004, 72.98 s
+[2022-08-13 02:57:56,467 INFO]   loss      : 2.4834 
+[2022-08-13 02:59:10,188 INFO] Epoch [36/40], step [51600/56240], lr 0.000004, 73.72 s
+[2022-08-13 02:59:10,191 INFO]   loss      : 2.4845 
+[2022-08-13 03:00:23,379 INFO] Epoch [36/40], step [51700/56240], lr 0.000004, 73.19 s
+[2022-08-13 03:00:23,381 INFO]   loss      : 2.4849 
+[2022-08-13 03:01:36,144 INFO] Epoch [36/40], step [51800/56240], lr 0.000004, 72.76 s
+[2022-08-13 03:01:36,147 INFO]   loss      : 2.4840 
+[2022-08-13 03:02:49,873 INFO] Epoch [36/40], step [51900/56240], lr 0.000003, 73.73 s
+[2022-08-13 03:02:49,875 INFO]   loss      : 2.4841 
+[2022-08-13 03:04:02,735 INFO] Epoch [36/40], step [52000/56240], lr 0.000003, 72.86 s
+[2022-08-13 03:04:02,736 INFO]   loss      : 2.4841 
+[2022-08-13 03:04:02,736 INFO] ========== Evaluation at global step 52000 ==========
+[2022-08-13 03:07:22,604 INFO] Eval: 100/156 steps finished
+[2022-08-13 03:09:14,725 INFO] Inference time = 1.91s, [0.3794 ms / sample] 
+[2022-08-13 03:09:14,725 INFO] Eval loss: 3.0069420140260346
+[2022-08-13 03:09:14,725 INFO] Best score: -2.8275355153782353
+[2022-08-13 03:09:14,725 INFO] Learning rate: 0.00000335
+[2022-08-13 03:10:34,567 INFO] Epoch [37/40], step [52100/56240], lr 0.000003, 62.43 s
+[2022-08-13 03:10:34,569 INFO]   loss      : 2.4858 
+[2022-08-13 03:11:47,959 INFO] Epoch [37/40], step [52200/56240], lr 0.000003, 73.39 s
+[2022-08-13 03:11:47,960 INFO]   loss      : 2.4693 
+[2022-08-13 03:13:00,611 INFO] Epoch [37/40], step [52300/56240], lr 0.000003, 72.65 s
+[2022-08-13 03:13:00,614 INFO]   loss      : 2.4621 
+[2022-08-13 03:14:14,300 INFO] Epoch [37/40], step [52400/56240], lr 0.000003, 73.69 s
+[2022-08-13 03:14:14,302 INFO]   loss      : 2.4739 
+[2022-08-13 03:15:26,836 INFO] Epoch [37/40], step [52500/56240], lr 0.000003, 72.53 s
+[2022-08-13 03:15:26,838 INFO]   loss      : 2.4755 
+[2022-08-13 03:16:40,295 INFO] Epoch [37/40], step [52600/56240], lr 0.000003, 73.45 s
+[2022-08-13 03:16:40,296 INFO]   loss      : 2.4782 
+[2022-08-13 03:17:53,480 INFO] Epoch [37/40], step [52700/56240], lr 0.000003, 73.18 s
+[2022-08-13 03:17:53,482 INFO]   loss      : 2.4778 
+[2022-08-13 03:19:06,095 INFO] Epoch [37/40], step [52800/56240], lr 0.000003, 72.61 s
+[2022-08-13 03:19:06,096 INFO]   loss      : 2.4790 
+[2022-08-13 03:20:19,711 INFO] Epoch [37/40], step [52900/56240], lr 0.000003, 73.61 s
+[2022-08-13 03:20:19,712 INFO]   loss      : 2.4802 
+[2022-08-13 03:21:32,492 INFO] Epoch [37/40], step [53000/56240], lr 0.000003, 72.78 s
+[2022-08-13 03:21:32,494 INFO]   loss      : 2.4812 
+[2022-08-13 03:21:32,494 INFO] ========== Evaluation at global step 53000 ==========
+[2022-08-13 03:24:53,900 INFO] Eval: 100/156 steps finished
+[2022-08-13 03:26:46,874 INFO] Inference time = 1.92s, [0.3831 ms / sample] 
+[2022-08-13 03:26:46,874 INFO] Eval loss: 3.0111706530212596
+[2022-08-13 03:26:46,874 INFO] Best score: -2.8275355153782353
+[2022-08-13 03:26:46,874 INFO] Learning rate: 0.00000256
+[2022-08-13 03:28:01,682 INFO] Epoch [37/40], step [53100/56240], lr 0.000002, 389.19 s
+[2022-08-13 03:28:01,682 INFO]   loss      : 2.4816 
+[2022-08-13 03:29:14,819 INFO] Epoch [37/40], step [53200/56240], lr 0.000002, 73.14 s
+[2022-08-13 03:29:14,821 INFO]   loss      : 2.4808 
+[2022-08-13 03:30:27,531 INFO] Epoch [37/40], step [53300/56240], lr 0.000002, 72.71 s
+[2022-08-13 03:30:27,534 INFO]   loss      : 2.4810 
+[2022-08-13 03:31:41,364 INFO] Epoch [37/40], step [53400/56240], lr 0.000002, 73.83 s
+[2022-08-13 03:31:41,365 INFO]   loss      : 2.4810 
+[2022-08-13 03:32:58,871 INFO] Epoch [38/40], step [53500/56240], lr 0.000002, 56.15 s
+[2022-08-13 03:32:58,872 INFO]   loss      : 2.4878 
+[2022-08-13 03:34:12,908 INFO] Epoch [38/40], step [53600/56240], lr 0.000002, 74.04 s
+[2022-08-13 03:34:12,909 INFO]   loss      : 2.4683 
+[2022-08-13 03:35:25,742 INFO] Epoch [38/40], step [53700/56240], lr 0.000002, 72.83 s
+[2022-08-13 03:35:25,744 INFO]   loss      : 2.4577 
+[2022-08-13 03:36:38,776 INFO] Epoch [38/40], step [53800/56240], lr 0.000002, 73.03 s
+[2022-08-13 03:36:38,779 INFO]   loss      : 2.4701 
+[2022-08-13 03:37:52,272 INFO] Epoch [38/40], step [53900/56240], lr 0.000002, 73.49 s
+[2022-08-13 03:37:52,273 INFO]   loss      : 2.4731 
+[2022-08-13 03:39:05,146 INFO] Epoch [38/40], step [54000/56240], lr 0.000002, 72.87 s
+[2022-08-13 03:39:05,147 INFO]   loss      : 2.4755 
+[2022-08-13 03:39:05,148 INFO] ========== Evaluation at global step 54000 ==========
+[2022-08-13 03:42:26,764 INFO] Eval: 100/156 steps finished
+[2022-08-13 03:44:19,622 INFO] Inference time = 1.92s, [0.3826 ms / sample] 
+[2022-08-13 03:44:19,622 INFO] Eval loss: 3.0101905825791087
+[2022-08-13 03:44:19,622 INFO] Best score: -2.8275355153782353
+[2022-08-13 03:44:19,622 INFO] Learning rate: 0.00000177
+[2022-08-13 03:45:34,651 INFO] Epoch [38/40], step [54100/56240], lr 0.000002, 389.50 s
+[2022-08-13 03:45:34,653 INFO]   loss      : 2.4755 
+[2022-08-13 03:46:47,791 INFO] Epoch [38/40], step [54200/56240], lr 0.000002, 73.14 s
+[2022-08-13 03:46:47,793 INFO]   loss      : 2.4759 
+[2022-08-13 03:48:00,634 INFO] Epoch [38/40], step [54300/56240], lr 0.000002, 72.84 s
+[2022-08-13 03:48:00,635 INFO]   loss      : 2.4776 
+[2022-08-13 03:49:14,651 INFO] Epoch [38/40], step [54400/56240], lr 0.000001, 74.02 s
+[2022-08-13 03:49:14,652 INFO]   loss      : 2.4785 
+[2022-08-13 03:50:27,607 INFO] Epoch [38/40], step [54500/56240], lr 0.000001, 72.95 s
+[2022-08-13 03:50:27,609 INFO]   loss      : 2.4791 
+[2022-08-13 03:51:41,048 INFO] Epoch [38/40], step [54600/56240], lr 0.000001, 73.44 s
+[2022-08-13 03:51:41,051 INFO]   loss      : 2.4779 
+[2022-08-13 03:52:54,229 INFO] Epoch [38/40], step [54700/56240], lr 0.000001, 73.17 s
+[2022-08-13 03:52:54,231 INFO]   loss      : 2.4785 
+[2022-08-13 03:54:07,002 INFO] Epoch [38/40], step [54800/56240], lr 0.000001, 72.77 s
+[2022-08-13 03:54:07,003 INFO]   loss      : 2.4785 
+[2022-08-13 03:55:24,739 INFO] Epoch [39/40], step [54900/56240], lr 0.000001, 51.47 s
+[2022-08-13 03:55:24,740 INFO]   loss      : 2.4901 
+[2022-08-13 03:56:38,572 INFO] Epoch [39/40], step [55000/56240], lr 0.000001, 73.83 s
+[2022-08-13 03:56:38,572 INFO]   loss      : 2.4677 
+[2022-08-13 03:56:38,572 INFO] ========== Evaluation at global step 55000 ==========
+[2022-08-13 03:59:57,238 INFO] Eval: 100/156 steps finished
+[2022-08-13 04:01:48,308 INFO] Inference time = 1.92s, [0.3826 ms / sample] 
+[2022-08-13 04:01:48,308 INFO] Eval loss: 3.0114112522951357
+[2022-08-13 04:01:48,308 INFO] Best score: -2.8275355153782353
+[2022-08-13 04:01:48,308 INFO] Learning rate: 0.00000098
+[2022-08-13 04:03:03,368 INFO] Epoch [39/40], step [55100/56240], lr 0.000001, 384.80 s
+[2022-08-13 04:03:03,369 INFO]   loss      : 2.4550 
+[2022-08-13 04:04:16,369 INFO] Epoch [39/40], step [55200/56240], lr 0.000001, 73.00 s
+[2022-08-13 04:04:16,370 INFO]   loss      : 2.4688 
+[2022-08-13 04:05:28,895 INFO] Epoch [39/40], step [55300/56240], lr 0.000001, 72.52 s
+[2022-08-13 04:05:28,896 INFO]   loss      : 2.4713 
+[2022-08-13 04:06:42,666 INFO] Epoch [39/40], step [55400/56240], lr 0.000001, 73.77 s
+[2022-08-13 04:06:42,667 INFO]   loss      : 2.4734 
+[2022-08-13 04:07:55,528 INFO] Epoch [39/40], step [55500/56240], lr 0.000001, 72.86 s
+[2022-08-13 04:07:55,530 INFO]   loss      : 2.4745 
+[2022-08-13 04:09:09,043 INFO] Epoch [39/40], step [55600/56240], lr 0.000001, 73.51 s
+[2022-08-13 04:09:09,045 INFO]   loss      : 2.4743 
+[2022-08-13 04:10:22,146 INFO] Epoch [39/40], step [55700/56240], lr 0.000000, 73.10 s
+[2022-08-13 04:10:22,147 INFO]   loss      : 2.4764 
+[2022-08-13 04:11:34,717 INFO] Epoch [39/40], step [55800/56240], lr 0.000000, 72.57 s
+[2022-08-13 04:11:34,720 INFO]   loss      : 2.4777 
+[2022-08-13 04:12:48,496 INFO] Epoch [39/40], step [55900/56240], lr 0.000000, 73.78 s
+[2022-08-13 04:12:48,496 INFO]   loss      : 2.4779 
+[2022-08-13 04:14:01,375 INFO] Epoch [39/40], step [56000/56240], lr 0.000000, 72.88 s
+[2022-08-13 04:14:01,377 INFO]   loss      : 2.4768 
+[2022-08-13 04:14:01,377 INFO] ========== Evaluation at global step 56000 ==========
+[2022-08-13 04:17:23,843 INFO] Eval: 100/156 steps finished
+[2022-08-13 04:19:17,937 INFO] Inference time = 1.93s, [0.3845 ms / sample] 
+[2022-08-13 04:19:17,937 INFO] Eval loss: 3.0121742631219757
+[2022-08-13 04:19:17,937 INFO] Best score: -2.8275355153782353
+[2022-08-13 04:19:17,937 INFO] Learning rate: 0.00000019
+[2022-08-13 04:20:32,860 INFO] Epoch [39/40], step [56100/56240], lr 0.000000, 391.48 s
+[2022-08-13 04:20:32,862 INFO]   loss      : 2.4773 
+[2022-08-13 04:21:45,907 INFO] Epoch [39/40], step [56200/56240], lr 0.000000, 73.04 s
+[2022-08-13 04:21:45,908 INFO]   loss      : 2.4773 
+Training Time: 59136.54511499405, rank 1, gsteps 56240
+Training Time: 59136.581322431564, rank 0, gsteps 56240
+[2022-08-13 04:25:35,910 INFO] Eval: 100/156 steps finished
+[2022-08-13 04:27:27,615 INFO] Inference time = 1.90s, [0.3778 ms / sample] 
+[2022-08-13 04:27:27,615 INFO] Eval loss: 3.011619649874936
+[2022-08-13 04:27:27,615 INFO] Best score: -2.8275355153782353
+[2022-08-13 04:27:27,615 INFO] Training Time: 59448.302825689316

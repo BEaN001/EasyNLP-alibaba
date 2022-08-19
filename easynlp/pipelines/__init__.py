@@ -22,9 +22,10 @@ from typing import Any, List, Optional
 from ..appzoo import TextImageGeneration, ImageTextGeneration, \
         SequenceClassification, TextMatch, SequenceLabeling
 from ..utils.io_utils import io
-from .implementation import Pipeline, TextImageGenerationPipeline, ImageTextGenerationPipeline, \
-        SequenceClassificationPipeline, TextImageGenerationPipeline, \
-        TextMatchPipeline, SequenceLabelingPipeline
+# from .implementation import Pipeline, TextImageGenerationPipeline, ImageTextGenerationPipeline, \
+#         SequenceClassificationPipeline, TextImageGenerationPipeline, \
+#         TextMatchPipeline, SequenceLabelingPipeline
+from .implementation import Pipeline, TextImageGenerationPipeline
 
 from ..utils import EASYNLP_CACHE_ROOT, EASYNLP_REMOTE_MODELZOO, EASYNLP_LOCAL_APPZOO
 
@@ -37,31 +38,31 @@ TASK_ALIASES = {
 }
 
 SUPPORTED_TASKS = {
-    'text_classify': {
-        'impl': SequenceClassificationPipeline,
-        'model_cls': SequenceClassification,
-        'default': 'bert-base-sst', 
-    }, 
-    'text_match': {
-        'impl': TextMatchPipeline,
-        'model_cls': TextMatch,
-        'default': 'bert-small-qnli', 
-    },
-    'sequence_labeling': {
-        'impl': SequenceLabelingPipeline,
-        'model_cls': SequenceLabeling,
-        'default': 'chinese-roberta-basener',
-    },
+    # 'text_classify': {
+    #     'impl': SequenceClassificationPipeline,
+    #     'model_cls': SequenceClassification,
+    #     'default': 'bert-base-sst', 
+    # }, 
+    # 'text_match': {
+    #     'impl': TextMatchPipeline,
+    #     'model_cls': TextMatch,
+    #     'default': 'bert-small-qnli', 
+    # },
+    # 'sequence_labeling': {
+    #     'impl': SequenceLabelingPipeline,
+    #     'model_cls': SequenceLabeling,
+    #     'default': 'chinese-roberta-basener',
+    # },
     'text2image_generation': {
         'impl': TextImageGenerationPipeline,
         'model_cls': TextImageGeneration,
         'default': 'artist-base-zh',
     },
-    'image2text_generation': {
-        'impl': ImageTextGenerationPipeline,
-        'model_cls': ImageTextGeneration,
-        'default': 'artist-i2t-base-zh',
-    }
+    # 'image2text_generation': {
+    #     'impl': ImageTextGenerationPipeline,
+    #     'model_cls': ImageTextGeneration,
+    #     'default': 'artist-i2t-base-zh',
+    # }
 }
 
 def pipeline(

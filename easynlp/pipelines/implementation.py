@@ -16,10 +16,8 @@
 
 from abc import ABC
 from typing import Any
-from ..appzoo import ImageTextGenerationPredictor,\
-                    TextImageGenerationPredictor, \
-                    SequenceClassificationPredictor, \
-                    TextMatchPredictor, SequenceLabelingPredictor
+#from ..appzoo import ImageTextGenerationPredictor,TextImageGenerationPredictor, SequenceClassificationPredictor, TextMatchPredictor, SequenceLabelingPredictor
+from ..appzoo import TextImageGenerationPredictor
 
 class Pipeline(ABC):
     """
@@ -50,26 +48,26 @@ class Pipeline(ABC):
         results = self.postprocess(model_outputs)
         return results
 
-class ImageTextGenerationPipeline(ImageTextGenerationPredictor, Pipeline):
+# class ImageTextGenerationPipeline(ImageTextGenerationPredictor, Pipeline):
 
-    def format_input(self, inputs):
-        """
-        Preprocess single sentence data.
-        """
-        if type(inputs) != str and type(inputs) != list:
-            raise RuntimeError("Input only supports string or lists of string")
-        if type(inputs) == str:
-            inputs = [inputs]
+#     def format_input(self, inputs):
+#         """
+#         Preprocess single sentence data.
+#         """
+#         if type(inputs) != str and type(inputs) != list:
+#             raise RuntimeError("Input only supports string or lists of string")
+#         if type(inputs) == str:
+#             inputs = [inputs]
 
-        return [{'idx': idx, \
-                'first_sequence': inputs[idx]} for idx in range(len(inputs))]
+#         return [{'idx': idx, \
+#                 'first_sequence': inputs[idx]} for idx in range(len(inputs))]
 
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
-        """
-        You need to post-process the outputs of the __call__ to get the fields you need.
-        """
-        results = super().__call__(*args, **kwds)
-        return [{'gen_text': res['gen_text']} for res in results]
+#     def __call__(self, *args: Any, **kwds: Any) -> Any:
+#         """
+#         You need to post-process the outputs of the __call__ to get the fields you need.
+#         """
+#         results = super().__call__(*args, **kwds)
+#         return [{'gen_text': res['gen_text']} for res in results]
 
 class TextImageGenerationPipeline(TextImageGenerationPredictor, Pipeline):
 
@@ -92,59 +90,59 @@ class TextImageGenerationPipeline(TextImageGenerationPredictor, Pipeline):
         results = super().__call__(*args, **kwds)
         return [{'gen_imgbase64': res['gen_imgbase64']} for res in results]
 
-class SequenceClassificationPipeline(SequenceClassificationPredictor, Pipeline):
+# class SequenceClassificationPipeline(SequenceClassificationPredictor, Pipeline):
 
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
-        """
-        You need to post-process the outputs of the __call__ to get the fields you need.
-        """
-        results = super().__call__(*args, **kwds)
-        if type(results) == dict:
-            return [{'label': results['predictions']}]
-        elif type(results) == list:
-            return [{'label': res['predictions']} for res in results]
-        else:
-            raise NotImplementedError
+#     def __call__(self, *args: Any, **kwds: Any) -> Any:
+#         """
+#         You need to post-process the outputs of the __call__ to get the fields you need.
+#         """
+#         results = super().__call__(*args, **kwds)
+#         if type(results) == dict:
+#             return [{'label': results['predictions']}]
+#         elif type(results) == list:
+#             return [{'label': res['predictions']} for res in results]
+#         else:
+#             raise NotImplementedError
 
-class TextMatchPipeline(TextMatchPredictor, Pipeline):
-    """
-    This is a implement of TextMatch pipeline. 
-    Input format: 
-        [sent1, sent2] or [[sent1, sent2], [sent1, sent2]]
-    """
-    def format_input(self, inputs):
-        """
-        Preprocess twin sentence data.
-        """
-        if type(inputs) != list:
-            raise RuntimeError("'TextMatchPipeline' only supports lists! \
-                    Every data instance contains two fields of sentence. \
-                    For example: [sent1, sent2] or [[sent1, sent2], [sent1, sent2]]")
-        if len(inputs) == 2:
-            inputs = [inputs]
-        assert len(inputs[0]) == 2
-        return [{'first_sequence': input_sentence_pair[0],
-                'second_sequence': input_sentence_pair[1]} for input_sentence_pair in inputs]
+# class TextMatchPipeline(TextMatchPredictor, Pipeline):
+#     """
+#     This is a implement of TextMatch pipeline. 
+#     Input format: 
+#         [sent1, sent2] or [[sent1, sent2], [sent1, sent2]]
+#     """
+#     def format_input(self, inputs):
+#         """
+#         Preprocess twin sentence data.
+#         """
+#         if type(inputs) != list:
+#             raise RuntimeError("'TextMatchPipeline' only supports lists! \
+#                     Every data instance contains two fields of sentence. \
+#                     For example: [sent1, sent2] or [[sent1, sent2], [sent1, sent2]]")
+#         if len(inputs) == 2:
+#             inputs = [inputs]
+#         assert len(inputs[0]) == 2
+#         return [{'first_sequence': input_sentence_pair[0],
+#                 'second_sequence': input_sentence_pair[1]} for input_sentence_pair in inputs]
 
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
-        results = super().__call__(*args, **kwds)
-        if type(results) == dict:
-            return [{'label': results['predictions']}]
-        elif type(results) == list:
-            return [{'label': res['predictions']} for res in results]
-        else:
-            raise NotImplementedError
+#     def __call__(self, *args: Any, **kwds: Any) -> Any:
+#         results = super().__call__(*args, **kwds)
+#         if type(results) == dict:
+#             return [{'label': results['predictions']}]
+#         elif type(results) == list:
+#             return [{'label': res['predictions']} for res in results]
+#         else:
+#             raise NotImplementedError
 
-class SequenceLabelingPipeline(SequenceLabelingPredictor, Pipeline):
+# class SequenceLabelingPipeline(SequenceLabelingPredictor, Pipeline):
 
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
-        results = super().__call__(*args, **kwds)
-        def delete_useless_key(_dict: dict, key_name: str) -> dict:
-            _dict.pop(key_name)
-            return _dict
-        if type(results) == dict:
-            return delete_useless_key(results, 'id')
-        elif type(results) == list:
-            return [delete_useless_key(res, 'id') for res in results]
-        else:
-            raise NotImplementedError
+#     def __call__(self, *args: Any, **kwds: Any) -> Any:
+#         results = super().__call__(*args, **kwds)
+#         def delete_useless_key(_dict: dict, key_name: str) -> dict:
+#             _dict.pop(key_name)
+#             return _dict
+#         if type(results) == dict:
+#             return delete_useless_key(results, 'id')
+#         elif type(results) == list:
+#             return [delete_useless_key(res, 'id') for res in results]
+#         else:
+#             raise NotImplementedError

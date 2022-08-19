@@ -51,10 +51,12 @@ class TextImageGenerationPredictor(Predictor):
             os.makedirs(local_dir, exist_ok=True)
             io.copytree(model_dir, local_dir)
             model_dir = local_dir
-        self.tokenizer = AutoTokenizer.from_pretrained(model_dir)
+        # self.tokenizer = AutoTokenizer.from_pretrained(model_dir) ##
+        self.tokenizer = AutoTokenizer.from_pretrained("/home/yubin/EasyNLP-alibaba/tmp/MUGE_tokenizer") ##
         self.MUTEX = Lock()
         
         model = model_cls(pretrained_model_name_or_path=model_dir).cuda()
+        # model = model_cls(pretrained_model_name_or_path=model_dir)
         self.model = model.eval()
         self.first_sequence = kwargs.pop("first_sequence", "first_sequence")
         self.text_len = int(user_defined_parameters.get('text_len', 32))
@@ -98,7 +100,34 @@ class TextImageGenerationPredictor(Predictor):
             rst["idx"].append(record["idx"]) 
             rst["input_ids"].append(text_ids)
 
-        return rst
+        return rst  
+    
+    def predict_postprocess(self, in_data): 
+        idx = in_data["idx"]
+        text_ids = torch.LongTensor(in_data['input_ids']).cuda()
+        text_ids_view = text_ids - self.img_vocab_size    
+
+        bs = len(idx)
+        cshape = torch.tensor([bs, 256, 16, 16])
+
+        gen_img_ids_list = []
+        
+        new_results = list()
+        for b in range(len(idx)):   
+            text = "".join(self.tokenizer.decode(text_ids_view[b], skip_special_tokens=True).split(" "))     
+            gen_img_base64_list = []
+            for gen_idx in range(self.max_generated_num):
+                # import pdb
+                # pdb.set_trace()
+                print(text_ids, cshape)
+                gen_imgs = self.model(text_ids, cshape)
+                gen_img_base64_list.append(save_image(gen_imgs[b]))
+            new_results.append({
+                "idx": idx[b],
+                "text": text,
+                "gen_imgbase64": gen_img_base64_list,
+            })
+        return new_results
 
     def predict(self, in_data):
         idx = in_data["idx"]

@@ -18,7 +18,8 @@ class TextImageGeneration(Application):
         
         if pretrained_model_name_or_path is not None: 
             self.first_stage_model = VQModel()
-            self.config = AutoConfig.from_pretrained(pretrained_model_name_or_path)
+            # self.config = AutoConfig.from_pretrained(pretrained_model_name_or_path)
+            self.config = AutoConfig.from_pretrained("/home/yubin/EasyNLP-alibaba/tmp/MUGE_tokenizer")
             self.transformer = GPT(self.config)
             self.init_from_ckpt(pretrained_model_name_or_path)
         else:
@@ -46,45 +47,47 @@ class TextImageGeneration(Application):
         return self
 
     
-    def forward(self, inputs):
-        x = inputs['image']
-        c = inputs['text']
-        x = x.permute(0, 3, 1, 2).to(memory_format=torch.contiguous_format)
-        # one step to produce the logits
-        _, z_indices = self.encode_to_z(x)       # z_indice: torch.Size([batch_size, 256]) 
-        c_indices = c
+    # def forward(self, inputs):
+    #     x = inputs['image']
+    #     c = inputs['text']
+    #     x = x.permute(0, 3, 1, 2).to(memory_format=torch.contiguous_format) #[batch_size, 3, 256, 256]
+    #     # one step to produce the logits
+    #     _, z_indices = self.encode_to_z(x)       # z_indice: torch.Size([batch_size, 256]) 
+    #     c_indices = c
 
-        if self.training and self.pkeep < 1.0:
-            mask = torch.bernoulli(self.pkeep*torch.ones(z_indices.shape,
-                                                         device=z_indices.device))
-            mask = mask.round().to(dtype=torch.int64)
-            r_indices = torch.randint_like(z_indices, self.transformer.config.vocab_size)
-            a_indices = mask*z_indices+(1-mask)*r_indices
-        else:
-            a_indices = z_indices
+    #     if self.training and self.pkeep < 1.0:
+    #         mask = torch.bernoulli(self.pkeep*torch.ones(z_indices.shape,
+    #                                                      device=z_indices.device))
+    #         mask = mask.round().to(dtype=torch.int64)
+    #         r_indices = torch.randint_like(z_indices, self.transformer.config.vocab_size)
+    #         a_indices = mask*z_indices+(1-mask)*r_indices
+    #     else:
+    #         a_indices = z_indices   
 
-        cz_indices = torch.cat((c_indices, a_indices), dim=1)
-        # print("cz_indices = ", cz_indices.shape)
+    #     cz_indices = torch.cat((c_indices, a_indices), dim=1) # [batch_size, 288]
+    #     # print("cz_indices = ", cz_indices.shape)
 
-        # target includes all sequence elements (no need to handle first one
-        # differently because we are conditioning)
-        target = z_indices
-        # make the prediction
-        logits, _ = self.transformer(cz_indices[:, :-1])
-        # cut off conditioning outputs - output i corresponds to p(z_i | z_{<i}, c)
-        logits = logits[:, c_indices.shape[1]-1:]
-        return logits, target
-    
-    def generate(self, inputs, top_k=100, temperature=1.0):
-        # print("inputs = ", inputs.shape)
+    #     # target includes all sequence elements (no need to handle first one
+    #     # differently because we are conditioning)
+    #     target = z_indices # [batch_size, 256]
+    #     # make the prediction
+    #     logits, _ = self.transformer(cz_indices[:, :-1]) # [batch, 287, 16384]
+    #     # cut off conditioning outputs - output i corresponds to p(z_i | z_{<i}, c)
+    #     logits = logits[:, c_indices.shape[1]-1:] # [batch, 256, 16384]
+    #     return logits, target
+
+    def forward(self, inputs, zshape):
+        top_k=100
+        temperature=1.0
+        
         cidx = inputs
 
         sample = True
         steps = 256
 
-        for k in range(steps):
-            x_cond = cidx
-            logits, _ = self.transformer(x_cond)
+        for k in range(steps): # 32 + 256
+            x_cond = cidx # [1, 32]
+            logits, _ = self.transformer(x_cond) # [1, 32, 16384]
             # print("logits shape = ", logits.shape)
             # pluck the logits at the final step and scale by temperature
             logits = logits[:, -1, :] / temperature
@@ -100,7 +103,41 @@ class TextImageGeneration(Application):
                 _, ix = torch.topk(probs, k=1, dim=-1)
             # append to the sequence and continue
             cidx = torch.cat((cidx, ix), dim=1)
-        img_idx = cidx[:, 32:]
+        img_idx = cidx[:, 32:] # [1,288] => [1:256] 
+        
+        bhwc = (zshape[0],zshape[2],zshape[3],zshape[1])
+        quant_z = self.first_stage_model.quantize.get_codebook_entry(
+            img_idx.reshape(-1), shape=bhwc)
+        x = self.first_stage_model.decode(quant_z)
+        print(x.shape)
+        return x
+    
+    def generate(self, inputs, top_k=100, temperature=1.0):
+        # print("inputs = ", inputs.shape)
+        cidx = inputs
+
+        sample = True
+        steps = 256
+
+        for k in range(steps): # 32 + 256
+            x_cond = cidx # [1, 32]
+            logits, _ = self.transformer(x_cond) # [1, 32, 16384]
+            # print("logits shape = ", logits.shape)
+            # pluck the logits at the final step and scale by temperature
+            logits = logits[:, -1, :] / temperature
+            # optionally crop probabilities to only the top k options
+            if top_k is not None:
+                logits = self.top_k_logits(logits, top_k)
+            # apply softmax to convert to probabilities
+            probs = torch.nn.functional.softmax(logits, dim=-1)
+            # sample from the distribution or take the most likely
+            if sample:
+                ix = torch.multinomial(probs, num_samples=1)
+            else:
+                _, ix = torch.topk(probs, k=1, dim=-1)
+            # append to the sequence and continue
+            cidx = torch.cat((cidx, ix), dim=1)
+        img_idx = cidx[:, 32:] # [1,288] => [1:256]
         # print("cidx shape   = ", img_idx.shape)
 
         return img_idx
@@ -327,4 +364,3 @@ class TextImageGeneration(Application):
         return optimizer
     
 
-    
